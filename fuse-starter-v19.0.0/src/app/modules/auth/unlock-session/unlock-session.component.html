@@ -27,57 +27,60 @@
                 [formGroup]="unlockSessionForm"
                 #unlockSessionNgForm="ngForm">
 
-                <!-- Name field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Full name</mat-label>
-                    <input
-                        id="name"
-                        matInput
-                        [formControlName]="'name'">
-                </mat-form-field>
+                <div class="flex flex-col gap-6">
+                    <!-- Name field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="name">Full name</label>
+                        <input
+                            id="name"
+                            pInputText
+                            class="w-full mt-2"
+                            [formControlName]="'name'"
+                            readonly>
+                    </div>
 
-                <!-- Password field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Password</mat-label>
-                    <input
-                        id="password"
-                        matInput
-                        type="password"
-                        [formControlName]="'password'"
-                        #passwordField>
-                    <button
-                        mat-icon-button
-                        type="button"
-                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                        matSuffix>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'password'"
-                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'text'"
-                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
-                    </button>
-                    <mat-error>
-                        Password is required
-                    </mat-error>
-                </mat-form-field>
+                    <!-- Password field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="password">Password</label>
+                        <div class="relative mt-2">
+                            <input
+                                id="password"
+                                pInputText
+                                class="w-full pr-12"
+                                [type]="hidePassword ? 'password' : 'text'"
+                                [formControlName]="'password'">
+                            <button
+                                type="button"
+                                pButton
+                                class="absolute inset-y-0 right-0 flex items-center justify-center px-3 p-button-rounded p-button-text p-button-icon-only"
+                                (click)="hidePassword = !hidePassword">
+                                <fuse-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="hidePassword ? 'heroicons_solid:eye' : 'heroicons_solid:eye-slash'"></fuse-icon>
+                            </button>
+                        </div>
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="unlockSessionForm.get('password')?.touched && unlockSessionForm.get('password')?.hasError('required')">
+                            Password is required
+                        </small>
+                    </div>
+                </div>
 
                 <!-- Submit button -->
                 <button
+                    type="button"
+                    pButton
                     class="fuse-mat-button-large w-full mt-3"
-                    mat-flat-button
-                    [color]="'primary'"
                     [disabled]="unlockSessionForm.disabled"
                     (click)="unlock()">
                     <span *ngIf="!unlockSessionForm.disabled">
                         Unlock your session
                     </span>
-                    <mat-progress-spinner
+                    <p-progressSpinner
                         *ngIf="unlockSessionForm.disabled"
-                        [diameter]="24"
-                        [mode]="'indeterminate'"></mat-progress-spinner>
+                        styleClass="w-6 h-6"
+                        strokeWidth="6"></p-progressSpinner>
                 </button>
 
                 <!-- Form footer -->

@@ -1,0 +1,16 @@
+<ng-container *ngIf="iconUrl; else fontIcon">
+    <svg
+        class="fuse-icon"
+        aria-hidden="true">
+        <use
+            [attr.href]="iconUrl"
+            [attr.xlink:href]="iconUrl"></use>
+    </svg>
+</ng-container>
+
+<ng-template #fontIcon>
+    <span
+        *ngIf="iconClass"
+        class="fuse-icon"
+        [ngClass]="iconClass"></span>
+</ng-template>

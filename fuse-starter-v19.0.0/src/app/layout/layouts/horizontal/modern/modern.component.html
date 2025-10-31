@@ -51,9 +51,11 @@
         <!-- Navigation toggle button -->
         <ng-container *ngIf="isScreenSmall">
             <button
-                mat-icon-button
+                type="button"
+                pButton
+                class="p-button-rounded p-button-text p-button-icon-only"
                 (click)="toggleNavigation('mainNavigation')">
-                <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+                <fuse-icon [svgIcon]="'heroicons_outline:bars-3'"></fuse-icon>
             </button>
         </ng-container>
         <!-- Components -->
@@ -65,10 +67,11 @@
             <messages></messages>
             <notifications></notifications>
             <button
-                class="lg:hidden"
-                mat-icon-button
+                type="button"
+                pButton
+                class="lg:hidden p-button-rounded p-button-text p-button-icon-only"
                 (click)="quickChat.toggle()">
-                <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
+                <fuse-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></fuse-icon>
             </button>
             <user></user>
         </div>
@@ -90,3 +93,4 @@
 
 <!-- Quick chat -->
 <quick-chat #quickChat="quickChat"></quick-chat>
+

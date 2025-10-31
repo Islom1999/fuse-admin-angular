@@ -42,77 +42,86 @@
                 [formGroup]="signInForm"
                 #signInNgForm="ngForm">
 
-                <!-- Email field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Email address</mat-label>
-                    <input
-                        id="email"
-                        matInput
-                        [formControlName]="'email'">
-                    <mat-error *ngIf="signInForm.get('email').hasError('required')">
-                        Email address is required
-                    </mat-error>
-                    <mat-error *ngIf="signInForm.get('email').hasError('email')">
-                        Please enter a valid email address
-                    </mat-error>
-                </mat-form-field>
+                <div class="flex flex-col gap-6">
 
-                <!-- Password field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Password</mat-label>
-                    <input
-                        id="password"
-                        matInput
-                        type="password"
-                        [formControlName]="'password'"
-                        #passwordField>
-                    <button
-                        mat-icon-button
-                        type="button"
-                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                        matSuffix>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'password'"
-                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'text'"
-                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
-                    </button>
-                    <mat-error>
-                        Password is required
-                    </mat-error>
-                </mat-form-field>
+                    <!-- Email field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="email">Email address</label>
+                        <input
+                            id="email"
+                            type="email"
+                            pInputText
+                            class="w-full mt-2"
+                            [formControlName]="'email'">
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.hasError('required')">
+                            Email address is required
+                        </small>
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.hasError('email')">
+                            Please enter a valid email address
+                        </small>
+                    </div>
 
-                <!-- Actions -->
-                <div class="inline-flex items-center justify-between w-full mt-1.5">
-                    <mat-checkbox
-                        class="-ml-2"
-                        [color]="'primary'"
-                        [formControlName]="'rememberMe'">
-                        Remember me
-                    </mat-checkbox>
-                    <a
-                        class="text-md font-medium text-primary-500 hover:underline"
-                        [routerLink]="['/forgot-password']">Forgot password?
-                    </a>
+                    <!-- Password field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="password">Password</label>
+                        <div class="relative mt-2">
+                            <input
+                                id="password"
+                                pInputText
+                                class="w-full pr-12"
+                                [type]="hidePassword ? 'password' : 'text'"
+                                [formControlName]="'password'">
+                            <button
+                                type="button"
+                                pButton
+                                class="absolute inset-y-0 right-0 flex items-center justify-center px-3 p-button-rounded p-button-text p-button-icon-only"
+                                (click)="hidePassword = !hidePassword">
+                                <fuse-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="hidePassword ? 'heroicons_solid:eye' : 'heroicons_solid:eye-slash'"></fuse-icon>
+                            </button>
+                        </div>
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signInForm.get('password')?.touched && signInForm.get('password')?.hasError('required')">
+                            Password is required
+                        </small>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="inline-flex items-center justify-between w-full">
+                        <div class="flex items-center">
+                            <p-checkbox
+                                inputId="rememberMe"
+                                [binary]="true"
+                                [formControlName]="'rememberMe'"></p-checkbox>
+                            <label class="ml-2 text-sm" for="rememberMe">Remember me</label>
+                        </div>
+                        <a
+                            class="text-md font-medium text-primary-500 hover:underline"
+                            [routerLink]="['/forgot-password']">Forgot password?
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Submit button -->
                 <button
+                    type="button"
+                    pButton
                     class="fuse-mat-button-large w-full mt-6"
-                    mat-flat-button
-                    [color]="'primary'"
                     [disabled]="signInForm.disabled"
                     (click)="signIn()">
                     <span *ngIf="!signInForm.disabled">
                         Sign in
                     </span>
-                    <mat-progress-spinner
+                    <p-progressSpinner
                         *ngIf="signInForm.disabled"
-                        [diameter]="24"
-                        [mode]="'indeterminate'"></mat-progress-spinner>
+                        styleClass="w-6 h-6"
+                        strokeWidth="6"></p-progressSpinner>
                 </button>
 
                 <!-- Separator -->
@@ -125,28 +134,28 @@
                 <!-- Single sign-on buttons -->
                 <div class="flex items-center mt-8 space-x-4">
                     <button
-                        class="flex-auto"
                         type="button"
-                        mat-stroked-button>
-                        <mat-icon
+                        pButton
+                        class="flex-auto p-button-outlined">
+                        <fuse-icon
                             class="icon-size-5"
-                            [svgIcon]="'feather:facebook'"></mat-icon>
+                            [svgIcon]="'feather:facebook'"></fuse-icon>
                     </button>
                     <button
-                        class="flex-auto"
                         type="button"
-                        mat-stroked-button>
-                        <mat-icon
+                        pButton
+                        class="flex-auto p-button-outlined">
+                        <fuse-icon
                             class="icon-size-5"
-                            [svgIcon]="'feather:twitter'"></mat-icon>
+                            [svgIcon]="'feather:twitter'"></fuse-icon>
                     </button>
                     <button
-                        class="flex-auto"
                         type="button"
-                        mat-stroked-button>
-                        <mat-icon
+                        pButton
+                        class="flex-auto p-button-outlined">
+                        <fuse-icon
                             class="icon-size-5"
-                            [svgIcon]="'feather:github'"></mat-icon>
+                            [svgIcon]="'feather:github'"></fuse-icon>
                     </button>
                 </div>
             </form>

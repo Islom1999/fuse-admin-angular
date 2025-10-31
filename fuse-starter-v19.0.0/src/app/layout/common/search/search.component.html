@@ -1,123 +1,96 @@
 <!-- Bar search -->
 <ng-container *ngIf="appearance === 'bar'">
     <button
-        mat-icon-button
+        type="button"
+        pButton
+        class="p-button-rounded p-button-text p-button-icon-only"
         *ngIf="!opened"
         (click)="open()">
-        <mat-icon [svgIcon]="'heroicons_outline:magnifying-glass'"></mat-icon>
+        <fuse-icon [svgIcon]="'heroicons_outline:magnifying-glass'"></fuse-icon>
     </button>
     <div
         class="absolute inset-0 flex items-center shrink-0 z-99 bg-card"
         *ngIf="opened"
         @slideInTop
         @slideOutTop>
-        <mat-icon
-            class="absolute ml-6 sm:ml-8"
-            [svgIcon]="'heroicons_outline:magnifying-glass'"></mat-icon>
+        <fuse-icon
+            class="absolute ml-6 sm:ml-8 icon-size-5 text-secondary"
+            [svgIcon]="'heroicons_outline:magnifying-glass'"></fuse-icon>
         <input
-            class="w-full h-full px-16 sm:px-18"
+            pInputText
+            class="w-full h-full px-16 sm:px-18 bg-transparent outline-none"
             [formControl]="searchControl"
-            [matAutocomplete]="matAutocomplete"
             [placeholder]="'Search...'"
             (keydown)="onKeydown($event)"
             #barSearchInput>
-        <mat-autocomplete
-            class="max-h-128 sm:px-2 border-t rounded-b shadow-md"
-            [autoSelectActiveOption]="true"
-            [disableRipple]="true"
-            #matAutocomplete="matAutocomplete">
-            <mat-option
-                class="py-0 px-6 text-md pointer-events-none text-secondary bg-transparent"
-                *ngIf="resultSets && !resultSets.length">
-                No results found!
-            </mat-option>
-            <ng-container *ngFor="let resultSet of resultSets; trackBy: trackByFn">
-                <mat-optgroup class="flex items-center mt-2 px-2">
-                    <span class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
-                </mat-optgroup>
-                <ng-container *ngFor="let result of resultSet.results; trackBy: trackByFn">
-                    <mat-option
-                        class="group relative mb-1 py-0 px-6 text-md rounded-md hover:bg-gray-100 dark:hover:bg-hover"
-                        [routerLink]="result.link"
-                        [value]="result.value">
-                        <!-- Contacts -->
-                        <ng-container *ngIf="resultSet.id === 'contacts'">
-                            <ng-container *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
-                        </ng-container>
-                        <!-- Pages -->
-                        <ng-container *ngIf="resultSet.id === 'pages'">
-                            <ng-container *ngTemplateOutlet="pageResult; context: {$implicit: result}"></ng-container>
-                        </ng-container>
-                        <!-- Tasks -->
-                        <ng-container *ngIf="resultSet.id === 'tasks'">
-                            <ng-container *ngTemplateOutlet="taskResult; context: {$implicit: result}"></ng-container>
-                        </ng-container>
-                    </mat-option>
-                </ng-container>
-            </ng-container>
-        </mat-autocomplete>
         <button
-            class="absolute top-1/2 right-5 sm:right-7 shrink-0 w-10 h-10 -mt-5"
-            mat-icon-button
+            type="button"
+            pButton
+            class="absolute top-1/2 right-5 sm:right-7 shrink-0 w-10 h-10 -mt-5 p-button-rounded p-button-text p-button-icon-only"
             (click)="close()">
-            <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+            <fuse-icon [svgIcon]="'heroicons_outline:x-mark'"></fuse-icon>
         </button>
+
+        <div
+            class="absolute left-0 right-0 top-full mt-2"
+            *ngIf="resultSets">
+            <div class="max-h-128 sm:px-2 border-t rounded-b shadow-md overflow-y-auto bg-card">
+                <ng-container *ngTemplateOutlet="resultsContent"></ng-container>
+            </div>
+        </div>
     </div>
 </ng-container>
 
 <!-- Basic search -->
 <ng-container *ngIf="appearance === 'basic'">
     <div class="w-full sm:min-w-80">
-        <mat-form-field
-            class="w-full"
-            [subscriptSizing]="'dynamic'">
-            <mat-icon
-                matPrefix
-                [svgIcon]="'heroicons_outline:magnifying-glass'"></mat-icon>
+        <div class="relative">
+            <fuse-icon
+                class="absolute left-4 top-1/2 -translate-y-1/2 icon-size-5 text-secondary"
+                [svgIcon]="'heroicons_outline:magnifying-glass'"></fuse-icon>
             <input
-                matInput
+                pInputText
+                class="w-full pl-12 pr-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent focus:outline-none focus:border-primary"
                 [formControl]="searchControl"
-                [matAutocomplete]="matAutocomplete"
                 [placeholder]="'Search...'"
                 (keydown)="onKeydown($event)">
-        </mat-form-field>
-        <mat-autocomplete
-            class="max-h-128 mt-1 rounded"
-            [autoSelectActiveOption]="true"
-            [disableRipple]="true"
-            #matAutocomplete="matAutocomplete">
-            <mat-option
-                class="py-0 px-6 text-md pointer-events-none text-secondary bg-transparent"
-                *ngIf="resultSets && !resultSets.length">
-                No results found!
-            </mat-option>
-            <ng-container *ngFor="let resultSet of resultSets; trackBy: trackByFn">
-                <mat-optgroup class="flex items-center mt-2 px-2">
-                    <span class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
-                </mat-optgroup>
-                <ng-container *ngFor="let result of resultSet.results; trackBy: trackByFn">
-                    <mat-option
-                        class="group relative mb-1 py-0 px-6 text-md rounded-md hover:bg-gray-100 dark:hover:bg-hover"
-                        [routerLink]="result.link"
-                        [value]="result.value">
-                        <!-- Contacts -->
-                        <ng-container *ngIf="resultSet.id === 'contacts'">
-                            <ng-container *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
-                        </ng-container>
-                        <!-- Pages -->
-                        <ng-container *ngIf="resultSet.id === 'pages'">
-                            <ng-container *ngTemplateOutlet="pageResult; context: {$implicit: result}"></ng-container>
-                        </ng-container>
-                        <!-- Tasks -->
-                        <ng-container *ngIf="resultSet.id === 'tasks'">
-                            <ng-container *ngTemplateOutlet="taskResult; context: {$implicit: result}"></ng-container>
-                        </ng-container>
-                    </mat-option>
-                </ng-container>
-            </ng-container>
-        </mat-autocomplete>
+        </div>
+        <div
+            class="max-h-128 mt-2 rounded border bg-card shadow overflow-y-auto"
+            *ngIf="resultSets">
+            <ng-container *ngTemplateOutlet="resultsContent"></ng-container>
+        </div>
     </div>
 </ng-container>
+
+<!-- Results content -->
+<ng-template #resultsContent>
+    <div
+        class="py-3 px-6 text-md text-secondary"
+        *ngIf="resultSets && !resultSets.length">
+        No results found!
+    </div>
+    <ng-container *ngFor="let resultSet of resultSets; trackBy: trackByFn">
+        <div class="flex items-center mt-2 px-4">
+            <span class="text-sm font-semibold tracking-wider text-secondary">{{resultSet.label.toUpperCase()}}</span>
+        </div>
+        <ng-container *ngFor="let result of resultSet.results; trackBy: trackByFn">
+            <a
+                class="group relative flex items-center mb-1 py-3 px-6 text-md rounded-md hover:bg-gray-100 dark:hover:bg-hover no-underline"
+                [routerLink]="result.link">
+                <ng-container *ngIf="resultSet.id === 'contacts'">
+                    <ng-container *ngTemplateOutlet="contactResult; context: {$implicit: result}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="resultSet.id === 'pages'">
+                    <ng-container *ngTemplateOutlet="pageResult; context: {$implicit: result}"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="resultSet.id === 'tasks'">
+                    <ng-container *ngTemplateOutlet="taskResult; context: {$implicit: result}"></ng-container>
+                </ng-container>
+            </a>
+        </ng-container>
+    </ng-container>
+</ng-template>
 
 <!-- Contact result template -->
 <ng-template
@@ -127,11 +100,12 @@
         <div class="flex shrink-0 items-center justify-center w-8 h-8 rounded-full overflow-hidden bg-primary-100 dark:bg-primary-800">
             <img
                 *ngIf="result.avatar"
-                [src]="result.avatar">
-            <mat-icon
+                [src]="result.avatar"
+                alt="Contact avatar">
+            <fuse-icon
                 class="m-0 icon-size-5 text-primary dark:text-primary-400"
                 *ngIf="!result.avatar"
-                [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                [svgIcon]="'heroicons_outline:user-circle'"></fuse-icon>
         </div>
         <div class="ml-3 truncate">
             <span [innerHTML]="result.name"></span>
@@ -159,14 +133,14 @@
     let-result>
     <div class="flex items-center">
         <ng-container *ngIf="result.completed">
-            <mat-icon
+            <fuse-icon
                 class="mr-0 text-primary dark:text-primary-400"
-                [svgIcon]="'heroicons_outline:check-circle'"></mat-icon>
+                [svgIcon]="'heroicons_outline:check-circle'"></fuse-icon>
         </ng-container>
         <ng-container *ngIf="!result.completed">
-            <mat-icon
+            <fuse-icon
                 class="mr-0 text-hint"
-                [svgIcon]="'heroicons_outline:check-circle'"></mat-icon>
+                [svgIcon]="'heroicons_outline:check-circle'"></fuse-icon>
         </ng-container>
         <div
             class="ml-3 truncate leading-normal"

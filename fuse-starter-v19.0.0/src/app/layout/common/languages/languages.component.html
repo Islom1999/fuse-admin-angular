@@ -1,25 +1,30 @@
 <!-- Button -->
 <button
-    mat-icon-button
-    [matMenuTriggerFor]="languages">
+    type="button"
+    pButton
+    class="languages-trigger p-button-rounded p-button-text p-button-icon-only"
+    (click)="languagesPopover.toggle($event)">
     <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: activeLang}"></ng-container>
 </button>
 
-<!-- Language menu -->
-<mat-menu
-    [xPosition]="'before'"
-    #languages="matMenu">
-    <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn">
-        <button
-            mat-menu-item
-            (click)="setActiveLang(lang.id)">
-            <span class="flex items-center">
-                <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: lang.id}"></ng-container>
-                <span class="ml-3">{{lang.label}}</span>
-            </span>
-        </button>
-    </ng-container>
-</mat-menu>
+<!-- Language popover -->
+<p-popover
+    #languagesPopover
+    [styleClass]="'languages-popover'">
+    <ng-template pTemplate="content">
+        <div class="flex flex-col py-2">
+            <ng-container *ngFor="let lang of availableLangs; trackBy: trackByFn">
+                <button
+                    type="button"
+                    class="flex items-center w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-hover"
+                    (click)="setActiveLang(lang.id)">
+                    <ng-container *ngTemplateOutlet="flagImage; context: {$implicit: lang.id}"></ng-container>
+                    <span class="ml-3">{{lang.label}}</span>
+                </button>
+            </ng-container>
+        </div>
+    </ng-template>
+</p-popover>
 
 <!-- Flag image template -->
 <ng-template

@@ -2,13 +2,14 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DatePipe, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MatButton, MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { MessagesService } from 'app/layout/common/messages/messages.service';
 import { Message } from 'app/layout/common/messages/messages.types';
 import { Subject, takeUntil } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+import { FuseIconComponent } from '@fuse/components/icon';
+import { ElementRef } from '@angular/core';
 
 @Component({
     selector: 'messages',
@@ -16,11 +17,11 @@ import { Subject, takeUntil } from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'messages',
-    imports: [MatButtonModule, NgIf, MatIconModule, MatTooltipModule, NgFor, NgClass, NgTemplateOutlet, RouterLink, DatePipe]
+    imports: [ButtonModule, NgIf, TooltipModule, NgFor, NgClass, NgTemplateOutlet, RouterLink, DatePipe, FuseIconComponent]
 })
 export class MessagesComponent implements OnInit, OnDestroy
 {
-    @ViewChild('messagesOrigin') private _messagesOrigin: MatButton;
+    @ViewChild('messagesOrigin', {read: ElementRef}) private _messagesOrigin: ElementRef<HTMLElement>;
     @ViewChild('messagesPanel') private _messagesPanel: TemplateRef<any>;
 
     messages: Message[];
@@ -170,7 +171,7 @@ export class MessagesComponent implements OnInit, OnDestroy
             backdropClass   : 'fuse-backdrop-on-mobile',
             scrollStrategy  : this._overlay.scrollStrategies.block(),
             positionStrategy: this._overlay.position()
-                .flexibleConnectedTo(this._messagesOrigin._elementRef.nativeElement)
+                .flexibleConnectedTo(this._messagesOrigin.nativeElement)
                 .withLockedPosition(true)
                 .withPush(true)
                 .withPositions([

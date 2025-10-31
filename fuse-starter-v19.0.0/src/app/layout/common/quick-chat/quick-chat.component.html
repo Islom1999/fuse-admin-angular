@@ -12,15 +12,16 @@
             <ng-container *ngIf="!opened || (opened && !selectedChat)">
                 <div class="flex flex-auto items-center justify-center">
                     <div class="flex flex-0 items-center justify-center w-16">
-                        <mat-icon
+                        <fuse-icon
                             class="icon-size-6"
-                            [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
+                            [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></fuse-icon>
                     </div>
                     <div class="text-lg font-medium text-secondary">Team Chat</div>
                     <button
-                        class="ml-auto mr-4"
-                        mat-icon-button>
-                        <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+                        type="button"
+                        pButton
+                        class="ml-auto mr-4 p-button-rounded p-button-text p-button-icon-only">
+                        <fuse-icon [svgIcon]="'heroicons_outline:x-mark'"></fuse-icon>
                     </button>
                 </div>
             </ng-container>
@@ -43,9 +44,10 @@
                     </div>
                     <div class="ml-4 text-lg font-medium leading-5 truncate">{{chat.contact.name}}</div>
                     <button
-                        class="ml-auto mr-4"
-                        mat-icon-button>
-                        <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+                        type="button"
+                        pButton
+                        class="ml-auto mr-4 p-button-rounded p-button-text p-button-icon-only">
+                        <fuse-icon [svgIcon]="'heroicons_outline:x-mark'"></fuse-icon>
                     </button>
                 </div>
             </ng-container>
@@ -151,18 +153,18 @@
 
                     <!-- Message field -->
                     <div class="flex items-end p-4 border-t bg-gray-50 dark:bg-transparent">
-                        <mat-form-field
-                            class="fuse-mat-dense fuse-mat-rounded fuse-mat-bold w-full"
-                            [subscriptSizing]="'dynamic'">
+                        <div class="flex flex-col flex-auto">
                             <textarea
-                                matInput
+                                class="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-card focus:outline-none focus:border-primary resize-none"
                                 cdkTextareaAutosize
                                 #messageInput></textarea>
-                        </mat-form-field>
+                        </div>
                         <div class="flex items-center h-11 my-px ml-4">
                             <button
-                                mat-icon-button>
-                                <mat-icon [svgIcon]="'heroicons_outline:paper-airplane'"></mat-icon>
+                                type="button"
+                                pButton
+                                class="p-button-rounded p-button-text p-button-icon-only">
+                                <fuse-icon [svgIcon]="'heroicons_outline:paper-airplane'"></fuse-icon>
                             </button>
                         </div>
                     </div>
@@ -175,9 +177,9 @@
 <!-- Select chat or start new template -->
 <ng-template #selectChatOrStartNew>
     <div class="flex flex-col flex-auto items-center justify-center w-full h-full p-4">
-        <mat-icon
+        <fuse-icon
             class="icon-size-24"
-            [svgIcon]="'heroicons_outline:chat-bubble-bottom-center-text'"></mat-icon>
+            [svgIcon]="'heroicons_outline:chat-bubble-bottom-center-text'"></fuse-icon>
         <div class="mt-4 text-xl text-center font-medium tracking-tight text-secondary">Select a conversation</div>
     </div>
 </ng-template>

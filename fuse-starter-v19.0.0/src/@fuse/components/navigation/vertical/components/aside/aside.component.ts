@@ -1,9 +1,8 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationEnd, Router } from '@angular/router';
+import { FuseIconComponent } from '@fuse/components/icon';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseVerticalNavigationBasicItemComponent } from '@fuse/components/navigation/vertical/components/basic/basic.component';
@@ -13,12 +12,13 @@ import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navig
 import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
 import { filter, Subject, takeUntil } from 'rxjs';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'fuse-vertical-navigation-aside-item',
     templateUrl: './aside.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass, MatTooltipModule, NgIf, MatIconModule, NgFor, FuseVerticalNavigationBasicItemComponent, FuseVerticalNavigationCollapsableItemComponent, FuseVerticalNavigationDividerItemComponent, FuseVerticalNavigationGroupItemComponent, FuseVerticalNavigationSpacerItemComponent]
+    imports: [NgClass, TooltipModule, NgIf, FuseIconComponent, NgFor, FuseVerticalNavigationBasicItemComponent, FuseVerticalNavigationCollapsableItemComponent, FuseVerticalNavigationDividerItemComponent, FuseVerticalNavigationGroupItemComponent, FuseVerticalNavigationSpacerItemComponent]
 })
 export class FuseVerticalNavigationAsideItemComponent implements OnChanges, OnInit, OnDestroy
 {

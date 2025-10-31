@@ -1,10 +1,12 @@
 import { NgFor, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
 import { take } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'primeng/popover';
+import { Popover } from 'primeng/popover';
+import { ViewChild } from '@angular/core';
 
 @Component({
     selector: 'languages',
@@ -12,13 +14,14 @@ import { take } from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'languages',
-    imports: [MatButtonModule, MatMenuModule, NgTemplateOutlet, NgFor]
+    imports: [ButtonModule, PopoverModule, NgTemplateOutlet, NgFor]
 })
 export class LanguagesComponent implements OnInit, OnDestroy
 {
     availableLangs: AvailableLangs;
     activeLang: string;
     flagCodes: any;
+    @ViewChild('languagesPopover') languagesPopover: Popover;
 
     /**
      * Constructor
@@ -80,6 +83,9 @@ export class LanguagesComponent implements OnInit, OnDestroy
     {
         // Set the active lang
         this._translocoService.setActiveLang(lang);
+
+        // Close the panel
+        this.languagesPopover?.hide();
     }
 
     /**

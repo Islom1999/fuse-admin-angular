@@ -1,12 +1,14 @@
 <!-- Button -->
 <button
-    mat-icon-button
-    [matTooltip]="tooltip || 'Toggle Fullscreen'"
+    type="button"
+    pButton
+    class="fuse-fullscreen-button p-button-rounded p-button-text p-button-icon-only"
+    [pTooltip]="tooltip || 'Toggle Fullscreen'"
     (click)="toggleFullscreen()">
     <ng-container [ngTemplateOutlet]="iconTpl || defaultIconTpl"></ng-container>
 </button>
 
 <!-- Default icon -->
 <ng-template #defaultIconTpl>
-    <mat-icon [svgIcon]="'heroicons_outline:arrows-pointing-out'"></mat-icon>
+    <fuse-icon [icon]="defaultIcon"></fuse-icon>
 </ng-template>

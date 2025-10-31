@@ -1,8 +1,8 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FuseLoadingService } from '@fuse/services/loading';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -11,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
     styleUrls: ['./loading-bar.component.scss'],
     encapsulation: ViewEncapsulation.None,
     exportAs: 'fuseLoadingBar',
-    imports: [NgIf, MatProgressBarModule]
+    imports: [NgIf, ProgressBarModule]
 })
 export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy
 {

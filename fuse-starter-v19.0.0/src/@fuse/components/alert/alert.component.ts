@@ -1,12 +1,13 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertService } from '@fuse/components/alert/alert.service';
 import { FuseAlertAppearance, FuseAlertType } from '@fuse/components/alert/alert.types';
+import { FuseIconComponent } from '@fuse/components/icon';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { PrimeIcons } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -17,7 +18,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: fuseAnimations,
     exportAs: 'fuseAlert',
-    imports: [NgIf, MatIconModule, MatButtonModule]
+    imports: [NgIf, FuseIconComponent, ButtonModule]
 })
 export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
 {
@@ -35,7 +36,19 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
     @Input() type: FuseAlertType = 'primary';
     @Output() readonly dismissedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    protected readonly dismissIcon: string = PrimeIcons.TIMES;
+
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private readonly _defaultIconMap: Record<FuseAlertType, string> = {
+        primary: PrimeIcons.CHECK_CIRCLE,
+        accent : PrimeIcons.CHECK_CIRCLE,
+        warn   : PrimeIcons.TIMES_CIRCLE,
+        basic  : PrimeIcons.CIRCLE,
+        info   : PrimeIcons.INFO_CIRCLE,
+        success: PrimeIcons.CHECK_CIRCLE,
+        warning: PrimeIcons.EXCLAMATION_TRIANGLE,
+        error  : PrimeIcons.TIMES_CIRCLE,
+    };
 
     /**
      * Constructor
@@ -214,5 +227,13 @@ export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy
 
         // Notify the change detector
         this._changeDetectorRef.markForCheck();
+    }
+
+    /**
+     * Default icon class for the current alert type
+     */
+    protected get defaultIcon(): string
+    {
+        return this._defaultIconMap[this.type] ?? PrimeIcons.INFO_CIRCLE;
     }
 }

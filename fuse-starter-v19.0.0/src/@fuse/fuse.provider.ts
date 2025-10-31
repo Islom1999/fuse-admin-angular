@@ -1,9 +1,6 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { EnvironmentProviders, importProvidersFrom, inject, Provider, provideEnvironmentInitializer, provideAppInitializer } from '@angular/core';
-import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FUSE_MOCK_API_DEFAULT_DELAY, mockApiInterceptor } from '@fuse/lib/mock-api';
 import { FuseConfig } from '@fuse/services/config';
 import { FUSE_CONFIG } from '@fuse/services/config/config.constants';
@@ -13,6 +10,7 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FusePlatformService } from '@fuse/services/platform';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen';
 import { FuseUtilsService } from '@fuse/services/utils';
+import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 
 export type FuseProviderConfig = {
     mockApi?: {
@@ -29,22 +27,6 @@ export const provideFuse = (config: FuseProviderConfig): Array<Provider | Enviro
     // Base providers
     const providers: Array<Provider | EnvironmentProviders> = [
         {
-            // Disable 'theme' sanity check
-            provide: MATERIAL_SANITY_CHECKS,
-            useValue: {
-                doctype: true,
-                theme: false,
-                version: true,
-            },
-        },
-        {
-            // Use the 'fill' appearance on Angular Material form fields by default
-            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-            useValue: {
-                appearance: 'fill',
-            },
-        },
-        {
             provide: FUSE_MOCK_API_DEFAULT_DELAY,
             useValue: config?.mockApi?.delay ?? 0,
         },
@@ -53,7 +35,8 @@ export const provideFuse = (config: FuseProviderConfig): Array<Provider | Enviro
             useValue: config?.fuse ?? {},
         },
 
-        importProvidersFrom(MatDialogModule),
+        DialogService,
+        importProvidersFrom(DynamicDialogModule),
         provideEnvironmentInitializer(() => inject(FuseConfirmationService)),
 
         provideHttpClient(withInterceptors([fuseLoadingInterceptor])),

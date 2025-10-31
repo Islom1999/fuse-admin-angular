@@ -48,9 +48,11 @@
                 <!-- Navigation toggle button -->
                 <ng-container *ngIf="isScreenSmall">
                     <button
-                        mat-icon-button
+                        type="button"
+                        pButton
+                        class="p-button-rounded p-button-text p-button-icon-only"
                         (click)="toggleNavigation('mainNavigation')">
-                        <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+                        <fuse-icon [svgIcon]="'heroicons_outline:bars-3'"></fuse-icon>
                     </button>
                 </ng-container>
                 <!-- Components -->

@@ -1,7 +1,5 @@
 import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
@@ -16,12 +14,14 @@ import { SearchComponent } from 'app/layout/common/search/search.component';
 import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { FuseIconComponent } from '@fuse/components/icon';
 
 @Component({
     selector: 'material-layout',
     templateUrl: './material.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [FuseLoadingBarComponent, NgIf, FuseVerticalNavigationComponent, MatButtonModule, MatIconModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, NotificationsComponent, UserComponent, FuseHorizontalNavigationComponent, RouterOutlet]
+    imports: [FuseLoadingBarComponent, NgIf, FuseVerticalNavigationComponent, ButtonModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, NotificationsComponent, UserComponent, FuseHorizontalNavigationComponent, RouterOutlet, FuseIconComponent]
 })
 export class MaterialLayoutComponent implements OnInit, OnDestroy
 {

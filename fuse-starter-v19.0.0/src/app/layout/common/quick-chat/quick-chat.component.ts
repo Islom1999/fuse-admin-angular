@@ -2,14 +2,12 @@ import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { DatePipe, DOCUMENT, NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Inject, NgZone, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { FuseScrollbarDirective } from '@fuse/directives/scrollbar';
 import { QuickChatService } from 'app/layout/common/quick-chat/quick-chat.service';
 import { Chat } from 'app/layout/common/quick-chat/quick-chat.types';
 import { Subject, takeUntil } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { FuseIconComponent } from '@fuse/components/icon';
 
 @Component({
     selector: 'quick-chat',
@@ -17,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
     styleUrls: ['./quick-chat.component.scss'],
     encapsulation: ViewEncapsulation.None,
     exportAs: 'quickChat',
-    imports: [NgClass, NgIf, MatIconModule, MatButtonModule, FuseScrollbarDirective, NgFor, NgTemplateOutlet, MatFormFieldModule, MatInputModule, TextFieldModule, DatePipe]
+    imports: [NgClass, NgIf, ButtonModule, FuseScrollbarDirective, NgFor, NgTemplateOutlet, TextFieldModule, DatePipe, FuseIconComponent]
 })
 export class QuickChatComponent implements OnInit, AfterViewInit, OnDestroy
 {

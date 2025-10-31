@@ -1,21 +1,21 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenu, MatMenuModule } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseHorizontalNavigationBasicItemComponent } from '@fuse/components/navigation/horizontal/components/basic/basic.component';
 import { FuseHorizontalNavigationDividerItemComponent } from '@fuse/components/navigation/horizontal/components/divider/divider.component';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
+import { FuseIconComponent } from '@fuse/components/icon';
+import { TooltipModule } from 'primeng/tooltip';
+import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'fuse-horizontal-navigation-branch-item',
     templateUrl: './branch.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgClass, MatMenuModule, NgTemplateOutlet, NgFor, FuseHorizontalNavigationBasicItemComponent, forwardRef(() => FuseHorizontalNavigationBranchItemComponent), FuseHorizontalNavigationDividerItemComponent, MatTooltipModule, MatIconModule]
+    imports: [NgIf, NgClass, NgTemplateOutlet, NgFor, FuseHorizontalNavigationBasicItemComponent, forwardRef(() => FuseHorizontalNavigationBranchItemComponent), FuseHorizontalNavigationDividerItemComponent, TooltipModule, FuseIconComponent, OverlayPanelModule]
 })
 export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDestroy
 {
@@ -26,8 +26,9 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     @Input() child: boolean = false;
     @Input() item: FuseNavigationItem;
     @Input() name: string;
-    @ViewChild('matMenu', {static: true}) matMenu: MatMenu;
+    @ViewChild('overlayPanel') overlayPanel: OverlayPanel;
 
+    menuOpen: boolean = false;
     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -84,6 +85,39 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     {
         // Mark for check
         this._changeDetectorRef.markForCheck();
+    }
+
+    toggleOverlay(event: Event, panel: OverlayPanel): void
+    {
+        if ( this.item.disabled )
+        {
+            return;
+        }
+
+        panel.toggle(event);
+    }
+
+    onOverlayShow(): void
+    {
+        this.menuOpen = true;
+        this.triggerChangeDetection();
+    }
+
+    onOverlayHide(): void
+    {
+        this.menuOpen = false;
+        this.triggerChangeDetection();
+    }
+
+    toggleChildMenu(): void
+    {
+        if ( this.item.disabled )
+        {
+            return;
+        }
+
+        this.menuOpen = !this.menuOpen;
+        this.triggerChangeDetection();
     }
 
     /**

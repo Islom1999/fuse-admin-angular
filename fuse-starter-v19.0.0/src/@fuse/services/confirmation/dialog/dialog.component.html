@@ -4,11 +4,13 @@
     <ng-container *ngIf="data.dismissible">
         <div class="absolute top-0 right-0 pt-4 pr-4">
             <button
-                mat-icon-button
-                [matDialogClose]="undefined">
-                <mat-icon
+                type="button"
+                pButton
+                class="p-button-rounded p-button-text p-button-icon-only"
+                (click)="close()">
+                <fuse-icon
                     class="text-secondary"
-                    [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+                    [svgIcon]="'heroicons_outline:x-mark'"></fuse-icon>
             </button>
         </div>
     </ng-container>
@@ -29,9 +31,9 @@
                             'text-amber-500 bg-amber-100 dark:text-amber-50 dark:bg-amber-500': data.icon.color === 'warning',
                             'text-red-600 bg-red-100 dark:text-red-50 dark:bg-red-600': data.icon.color === 'error'
                             }">
-                <mat-icon
+                <fuse-icon
                     class="text-current"
-                    [svgIcon]="data.icon.name"></mat-icon>
+                    [svgIcon]="data.icon.name"></fuse-icon>
             </div>
         </ng-container>
 
@@ -63,8 +65,10 @@
             <!-- Cancel -->
             <ng-container *ngIf="data.actions.cancel.show">
                 <button
-                    mat-stroked-button
-                    [matDialogClose]="'cancelled'">
+                    type="button"
+                    pButton
+                    class="p-button-outlined"
+                    (click)="close('cancelled')">
                     {{data.actions.cancel.label}}
                 </button>
             </ng-container>
@@ -72,9 +76,10 @@
             <!-- Confirm -->
             <ng-container *ngIf="data.actions.confirm.show">
                 <button
-                    mat-flat-button
-                    [color]="data.actions.confirm.color"
-                    [matDialogClose]="'confirmed'">
+                    type="button"
+                    pButton
+                    [severity]="confirmSeverity"
+                    (click)="close('confirmed')">
                     {{data.actions.confirm.label}}
                 </button>
             </ng-container>

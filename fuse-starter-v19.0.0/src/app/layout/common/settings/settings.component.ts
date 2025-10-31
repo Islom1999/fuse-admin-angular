@@ -1,13 +1,13 @@
 import { NgClass, NgFor } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { FuseDrawerComponent } from '@fuse/components/drawer';
 import { FuseConfig, FuseConfigService, Scheme, Theme, Themes } from '@fuse/services/config';
 
 import { Subject, takeUntil } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
+import { FuseIconComponent } from '@fuse/components/icon';
 
 @Component({
     selector: 'settings',
@@ -30,7 +30,7 @@ import { Subject, takeUntil } from 'rxjs';
         `,
     ],
     encapsulation: ViewEncapsulation.None,
-    imports: [MatIconModule, FuseDrawerComponent, MatButtonModule, NgFor, NgClass, MatTooltipModule]
+    imports: [FuseIconComponent, FuseDrawerComponent, ButtonModule, NgFor, NgClass, TooltipModule]
 })
 export class SettingsComponent implements OnInit, OnDestroy
 {

@@ -16,7 +16,7 @@
             [queryParamsHandling]="item.queryParamsHandling ?? null"
             [routerLinkActive]="'fuse-horizontal-navigation-item-active'"
             [routerLinkActiveOptions]="isActiveMatchOptions"
-            [matTooltip]="item.tooltip || ''">
+            [pTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
     </ng-container>
@@ -27,7 +27,7 @@
             class="fuse-horizontal-navigation-item"
             [href]="item.link"
             [target]="item.target || '_self'"
-            [matTooltip]="item.tooltip || ''">
+            [pTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
     </ng-container>
@@ -37,7 +37,7 @@
         <div
             class="fuse-horizontal-navigation-item"
             [ngClass]="{'fuse-horizontal-navigation-item-active-forced': item.active}"
-            [matTooltip]="item.tooltip || ''"
+            [pTooltip]="item.tooltip || ''"
             (click)="item.function(item)">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
@@ -55,7 +55,7 @@
             [queryParamsHandling]="item.queryParamsHandling ?? null"
             [routerLinkActive]="'fuse-horizontal-navigation-item-active'"
             [routerLinkActiveOptions]="isActiveMatchOptions"
-            [matTooltip]="item.tooltip || ''"
+            [pTooltip]="item.tooltip || ''"
             (click)="item.function(item)">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
@@ -67,9 +67,8 @@
             class="fuse-horizontal-navigation-item"
             [href]="item.link"
             [target]="item.target || '_self'"
-            [matTooltip]="item.tooltip || ''"
-            (click)="item.function(item)"
-            mat-menu-item>
+            [pTooltip]="item.tooltip || ''"
+            (click)="item.function(item)">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </a>
     </ng-container>
@@ -79,7 +78,7 @@
         <div
             class="fuse-horizontal-navigation-item"
             [ngClass]="{'fuse-horizontal-navigation-item-active-forced': item.active}"
-            [matTooltip]="item.tooltip || ''">
+            [pTooltip]="item.tooltip || ''">
             <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
         </div>
     </ng-container>
@@ -98,10 +97,10 @@
 
     <!-- Icon -->
     <ng-container *ngIf="item.icon">
-        <mat-icon
+        <fuse-icon
             class="fuse-horizontal-navigation-item-icon"
             [ngClass]="item.classes?.icon"
-            [svgIcon]="item.icon"></mat-icon>
+            [svgIcon]="item.icon"></fuse-icon>
     </ng-container>
 
     <!-- Title & Subtitle -->

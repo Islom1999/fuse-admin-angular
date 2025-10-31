@@ -33,103 +33,121 @@
                 [formGroup]="signUpForm"
                 #signUpNgForm="ngForm">
 
-                <!-- Name field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Full name</mat-label>
-                    <input
-                        id="name"
-                        matInput
-                        [formControlName]="'name'">
-                    <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                        Full name is required
-                    </mat-error>
-                </mat-form-field>
+                <div class="flex flex-col gap-6">
 
-                <!-- Email field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Email address</mat-label>
-                    <input
-                        id="email"
-                        matInput
-                        [formControlName]="'email'">
-                    <mat-error *ngIf="signUpForm.get('email').hasError('required')">
-                        Email address is required
-                    </mat-error>
-                    <mat-error *ngIf="signUpForm.get('email').hasError('email')">
-                        Please enter a valid email address
-                    </mat-error>
-                </mat-form-field>
+                    <!-- Name field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="name">Full name</label>
+                        <input
+                            id="name"
+                            pInputText
+                            class="w-full mt-2"
+                            [formControlName]="'name'">
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signUpForm.get('name')?.touched && signUpForm.get('name')?.hasError('required')">
+                            Full name is required
+                        </small>
+                    </div>
 
-                <!-- Password field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Password</mat-label>
-                    <input
-                        id="password"
-                        matInput
-                        type="password"
-                        [formControlName]="'password'"
-                        #passwordField>
-                    <button
-                        mat-icon-button
-                        type="button"
-                        (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
-                        matSuffix>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'password'"
-                            [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-                        <mat-icon
-                            class="icon-size-5"
-                            *ngIf="passwordField.type === 'text'"
-                            [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
-                    </button>
-                    <mat-error>
-                        Password is required
-                    </mat-error>
-                </mat-form-field>
+                    <!-- Email field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="email">Email address</label>
+                        <input
+                            id="email"
+                            type="email"
+                            pInputText
+                            class="w-full mt-2"
+                            [formControlName]="'email'">
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.hasError('required')">
+                            Email address is required
+                        </small>
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.hasError('email')">
+                            Please enter a valid email address
+                        </small>
+                    </div>
 
-                <!-- Company field -->
-                <mat-form-field class="w-full">
-                    <mat-label>Company</mat-label>
-                    <input
-                        id="company-confirm"
-                        matInput
-                        [formControlName]="'company'">
-                </mat-form-field>
+                    <!-- Password field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="password">Password</label>
+                        <div class="relative mt-2">
+                            <input
+                                id="password"
+                                pInputText
+                                class="w-full pr-12"
+                                [type]="hidePassword ? 'password' : 'text'"
+                                [formControlName]="'password'">
+                            <button
+                                type="button"
+                                pButton
+                                class="absolute inset-y-0 right-0 flex items-center justify-center px-3 p-button-rounded p-button-text p-button-icon-only"
+                                (click)="hidePassword = !hidePassword">
+                                <fuse-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="hidePassword ? 'heroicons_solid:eye' : 'heroicons_solid:eye-slash'"></fuse-icon>
+                            </button>
+                        </div>
+                        <small
+                            class="block mt-1 text-red-500"
+                            *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.hasError('required')">
+                            Password is required
+                        </small>
+                    </div>
 
-                <!-- ToS and PP -->
-                <div class="inline-flex items-end w-full mt-1.5">
-                    <mat-checkbox
-                        class="-ml-2"
-                        [color]="'primary'"
-                        [formControlName]="'agreements'">
-                        <span>I agree with</span>
-                        <a
-                            class="ml-1 text-primary-500 hover:underline"
-                            [routerLink]="['./']">Terms
-                        </a>
-                        <span>and</span>
-                        <a
-                            class="ml-1 text-primary-500 hover:underline"
-                            [routerLink]="['./']">Privacy Policy
-                        </a>
-                    </mat-checkbox>
+                    <!-- Company field -->
+                    <div>
+                        <label class="block text-sm font-medium leading-6 text-secondary" for="company-confirm">Company</label>
+                        <input
+                            id="company-confirm"
+                            pInputText
+                            class="w-full mt-2"
+                            [formControlName]="'company'">
+                    </div>
+
+                    <!-- ToS and PP -->
+                    <div class="inline-flex flex-wrap items-center w-full">
+                        <p-checkbox
+                            inputId="agreements"
+                            [binary]="true"
+                            [formControlName]="'agreements'"></p-checkbox>
+                        <label class="ml-2 text-sm" for="agreements">
+                            <span>I agree with</span>
+                            <a
+                                class="ml-1 text-primary-500 hover:underline"
+                                [routerLink]="['./']">Terms
+                            </a>
+                            <span>and</span>
+                            <a
+                                class="ml-1 text-primary-500 hover:underline"
+                                [routerLink]="['./']">Privacy Policy
+                            </a>
+                        </label>
+                        <small
+                            class="block w-full mt-1 text-red-500"
+                            *ngIf="signUpForm.get('agreements')?.touched && signUpForm.get('agreements')?.hasError('required')">
+                            You must agree with the terms to continue
+                        </small>
+                    </div>
                 </div>
 
                 <!-- Submit button -->
                 <button
+                    type="button"
+                    pButton
                     class="fuse-mat-button-large w-full mt-6"
-                    mat-flat-button
-                    [color]="'primary'"
                     [disabled]="signUpForm.disabled"
                     (click)="signUp()">
                     <span *ngIf="!signUpForm.disabled">
                         Create your free account
                     </span>
-                    <mat-progress-spinner
+                    <p-progressSpinner
                         *ngIf="signUpForm.disabled"
-                        [diameter]="24"
-                        [mode]="'indeterminate'"></mat-progress-spinner>
+                        styleClass="w-6 h-6"
+                        strokeWidth="6"></p-progressSpinner>
                 </button>
 
             </form>

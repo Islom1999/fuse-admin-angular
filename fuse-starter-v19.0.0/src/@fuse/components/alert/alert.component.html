@@ -21,39 +21,7 @@
 
         <!-- Default icons -->
         <div class="fuse-alert-default-icon">
-
-            <mat-icon
-                *ngIf="type === 'primary'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'accent'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'warn'"
-                [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'basic'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'info'"
-                [svgIcon]="'heroicons_solid:information-circle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'success'"
-                [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'warning'"
-                [svgIcon]="'heroicons_solid:exclamation-triangle'"></mat-icon>
-
-            <mat-icon
-                *ngIf="type === 'error'"
-                [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
-
+            <fuse-icon [icon]="defaultIcon"></fuse-icon>
         </div>
 
     </div>
@@ -73,10 +41,11 @@
 
     <!-- Dismiss button -->
     <button
+        type="button"
         class="fuse-alert-dismiss-button"
-        mat-icon-button
+        pButton
+        [icon]="dismissIcon"
         (click)="dismiss()">
-        <mat-icon [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
     </button>
 
 </div>

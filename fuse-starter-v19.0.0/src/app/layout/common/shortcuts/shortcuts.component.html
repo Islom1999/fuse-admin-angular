@@ -1,9 +1,11 @@
 <!-- Shortcuts toggle -->
 <button
-    mat-icon-button
+    type="button"
+    pButton
+    class="p-button-rounded p-button-text p-button-icon-only"
     (click)="openPanel()"
     #shortcutsOrigin>
-    <mat-icon [svgIcon]="'heroicons_outline:squares-plus'"></mat-icon>
+    <fuse-icon [svgIcon]="'heroicons_outline:squares-plus'"></fuse-icon>
 </button>
 
 <!-- Shortcuts panel -->
@@ -14,11 +16,13 @@
         <div class="flex shrink-0 items-center py-4 pr-4 pl-6 bg-primary text-on-primary">
             <div class="sm:hidden -ml-1 mr-3">
                 <button
-                    mat-icon-button
+                    type="button"
+                    pButton
+                    class="p-button-rounded p-button-text p-button-icon-only"
                     (click)="closePanel()">
-                    <mat-icon
+                    <fuse-icon
                         class="icon-size-5 text-current"
-                        [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
+                        [svgIcon]="'heroicons_solid:x-mark'"></fuse-icon>
                 </button>
             </div>
             <div class="flex items-center text-lg font-medium leading-10">
@@ -36,21 +40,25 @@
                 <ng-container *ngIf="mode === 'view'">
                     <!-- Enter 'modify' mode -->
                     <button
-                        mat-icon-button
+                        type="button"
+                        pButton
+                        class="p-button-rounded p-button-text p-button-icon-only"
                         (click)="changeMode('modify')"
-                        [matTooltip]="'Enter edit mode'">
-                        <mat-icon
+                        [pTooltip]="'Enter edit mode'">
+                        <fuse-icon
                             class="icon-size-5 text-current"
-                            [svgIcon]="'heroicons_solid:pencil-square'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:pencil-square'"></fuse-icon>
                     </button>
                     <!-- Enter 'add' mode -->
                     <button
-                        mat-icon-button
+                        type="button"
+                        pButton
+                        class="p-button-rounded p-button-text p-button-icon-only"
                         (click)="newShortcut()"
-                        [matTooltip]="'Add shortcut'">
-                        <mat-icon
+                        [pTooltip]="'Add shortcut'">
+                        <fuse-icon
                             class="icon-size-5 text-current"
-                            [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:plus-circle'"></fuse-icon>
                     </button>
                 </ng-container>
 
@@ -58,12 +66,14 @@
                 <ng-container *ngIf="mode === 'modify'">
                     <!-- Enter 'view' mode -->
                     <button
-                        mat-icon-button
+                        type="button"
+                        pButton
+                        class="p-button-rounded p-button-text p-button-icon-only"
                         (click)="changeMode('view')"
-                        [matTooltip]="'Exit edit mode'">
-                        <mat-icon
+                        [pTooltip]="'Exit edit mode'">
+                        <fuse-icon
                             class="icon-size-5 text-current"
-                            [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:check-circle'"></fuse-icon>
                     </button>
                 </ng-container>
 
@@ -71,12 +81,14 @@
                 <ng-container *ngIf="mode === 'add'">
                     <!-- Enter 'view' mode -->
                     <button
-                        mat-icon-button
+                        type="button"
+                        pButton
+                        class="p-button-rounded p-button-text p-button-icon-only"
                         (click)="changeMode('view')"
-                        [matTooltip]="'Cancel'">
-                        <mat-icon
+                        [pTooltip]="'Cancel'">
+                        <fuse-icon
                             class="icon-size-5 text-current"
-                            [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:x-circle'"></fuse-icon>
                     </button>
                 </ng-container>
 
@@ -84,12 +96,14 @@
                 <ng-container *ngIf="mode === 'edit'">
                     <!-- Enter 'modify' mode -->
                     <button
-                        mat-icon-button
+                        type="button"
+                        pButton
+                        class="p-button-rounded p-button-text p-button-icon-only"
                         (click)="changeMode('modify')"
-                        [matTooltip]="'Cancel'">
-                        <mat-icon
+                        [pTooltip]="'Cancel'">
+                        <fuse-icon
                             class="icon-size-5 text-current"
-                            [svgIcon]="'heroicons_solid:x-circle'"></mat-icon>
+                            [svgIcon]="'heroicons_solid:x-circle'"></fuse-icon>
                     </button>
                 </ng-container>
             </div>
@@ -129,14 +143,14 @@
                             <!-- Link content template -->
                             <ng-template #linkContent>
                                 <div class="relative flex shrink-0 items-center justify-center w-12 h-12 mb-3 rounded-full bg-gray-100 dark:bg-gray-700">
-                                    <mat-icon
+                                    <fuse-icon
                                         class="absolute opacity-0 group-hover:opacity-100 z-20 icon-size-5"
                                         *ngIf="mode === 'modify'"
-                                        [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
-                                    <mat-icon
+                                        [svgIcon]="'heroicons_solid:pencil'"></fuse-icon>
+                                    <fuse-icon
                                         class="z-10"
                                         [ngClass]="{'group-hover:opacity-0': mode === 'modify'}"
-                                        [svgIcon]="shortcut.icon"></mat-icon>
+                                        [svgIcon]="shortcut.icon"></fuse-icon>
                                 </div>
                                 <div class="font-medium text-center">{{shortcut.label}}</div>
                                 <div class="text-md text-center text-secondary">{{shortcut.description}}</div>
@@ -149,9 +163,9 @@
                 <ng-container *ngIf="!shortcuts || !shortcuts.length">
                     <div class="flex flex-col flex-auto items-center justify-center sm:justify-start py-12 px-8">
                         <div class="flex flex-0 items-center justify-center w-14 h-14 rounded-full bg-primary-100 dark:bg-primary-600">
-                            <mat-icon
+                            <fuse-icon
                                 class="text-primary-700 dark:text-primary-50"
-                                [svgIcon]="'heroicons_outline:bookmark'"></mat-icon>
+                                [svgIcon]="'heroicons_outline:bookmark'"></fuse-icon>
                         </div>
                         <div class="mt-5 text-2xl font-semibold tracking-tight">No shortcuts</div>
                         <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">When you have shortcuts, they will appear here.</div>
@@ -162,55 +176,59 @@
             <!-- Add/Edit mode -->
             <ng-container *ngIf="mode === 'add' || mode === 'edit'">
                 <form
-                    class="p-6"
+                    class="p-6 space-y-4"
                     [formGroup]="shortcutForm">
-                    <mat-form-field class="w-full">
-                        <mat-label>Label</mat-label>
+                    <label class="block w-full">
+                        <span class="text-sm font-medium text-secondary">Label</span>
                         <input
-                            matInput
+                            pInputText
+                            class="w-full mt-2"
                             [formControlName]="'label'"
                             required>
-                    </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <mat-label>Description</mat-label>
+                    </label>
+                    <label class="block w-full">
+                        <span class="text-sm font-medium text-secondary">Description</span>
                         <input
-                            matInput
+                            pInputText
+                            class="w-full mt-2"
                             [formControlName]="'description'">
-                    </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <mat-label>Icon</mat-label>
+                    </label>
+                    <label class="block w-full">
+                        <span class="text-sm font-medium text-secondary">Icon</span>
                         <input
-                            matInput
+                            pInputText
+                            class="w-full mt-2"
                             [formControlName]="'icon'"
                             required>
-                    </mat-form-field>
-                    <mat-form-field class="w-full">
-                        <mat-label>Link</mat-label>
+                    </label>
+                    <label class="block w-full">
+                        <span class="text-sm font-medium text-secondary">Link</span>
                         <input
-                            matInput
+                            pInputText
+                            class="w-full mt-2"
                             [formControlName]="'link'"
                             required>
-                    </mat-form-field>
-                    <mat-slide-toggle
-                        [color]="'primary'"
-                        [formControlName]="'useRouter'">
-                        Use router for the link
-                    </mat-slide-toggle>
+                    </label>
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-sm font-medium text-secondary">Use router for the link</span>
+                        <p-inputSwitch
+                            [formControlName]="'useRouter'"></p-inputSwitch>
+                    </div>
                     <!-- Actions -->
-                    <div class="flex items-center justify-end mt-4">
+                    <div class="flex items-center justify-end pt-4 space-x-2">
                         <button
-                            class="mr-2"
-                            *ngIf="mode === 'edit'"
-                            mat-flat-button
                             type="button"
+                            pButton
+                            class="p-button-text"
+                            *ngIf="mode === 'edit'"
                             (click)="delete()">
                             Delete
                         </button>
                         <button
-                            mat-flat-button
-                            [color]="'primary'"
-                            [disabled]="!shortcutForm.valid"
                             type="button"
+                            pButton
+                            class="p-button-raised p-button-primary"
+                            [disabled]="!shortcutForm.valid"
                             (click)="save()">
                             <ng-container *ngIf="mode === 'add'">Add</ng-container>
                             <ng-container *ngIf="mode === 'edit'">Update</ng-container>

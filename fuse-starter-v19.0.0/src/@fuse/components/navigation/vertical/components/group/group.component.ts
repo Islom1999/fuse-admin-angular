@@ -1,7 +1,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { FuseIconComponent } from '@fuse/components/icon';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseVerticalNavigationBasicItemComponent } from '@fuse/components/navigation/vertical/components/basic/basic.component';
@@ -15,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
     selector: 'fuse-vertical-navigation-group-item',
     templateUrl: './group.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass, NgIf, MatIconModule, NgFor, FuseVerticalNavigationBasicItemComponent, FuseVerticalNavigationCollapsableItemComponent, FuseVerticalNavigationDividerItemComponent, forwardRef(() => FuseVerticalNavigationGroupItemComponent), FuseVerticalNavigationSpacerItemComponent]
+    imports: [NgClass, NgIf, FuseIconComponent, NgFor, FuseVerticalNavigationBasicItemComponent, FuseVerticalNavigationCollapsableItemComponent, FuseVerticalNavigationDividerItemComponent, forwardRef(() => FuseVerticalNavigationGroupItemComponent), FuseVerticalNavigationSpacerItemComponent]
 })
 export class FuseVerticalNavigationGroupItemComponent implements OnInit, OnDestroy
 {

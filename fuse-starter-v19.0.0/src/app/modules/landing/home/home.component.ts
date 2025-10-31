@@ -1,13 +1,13 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { FuseIconComponent } from '@fuse/components/icon';
 
 @Component({
     selector: 'landing-home',
     templateUrl: './home.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [MatButtonModule, RouterLink, MatIconModule]
+    imports: [ButtonModule, RouterLink, FuseIconComponent]
 })
 export class LandingHomeComponent
 {

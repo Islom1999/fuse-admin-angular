@@ -1,7 +1,5 @@
 import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
@@ -19,12 +17,14 @@ import { SearchComponent } from 'app/layout/common/search/search.component';
 import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { FuseIconComponent } from '@fuse/components/icon';
 
 @Component({
     selector: 'classy-layout',
     templateUrl: './classy.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [FuseLoadingBarComponent, FuseVerticalNavigationComponent, NotificationsComponent, UserComponent, NgIf, MatIconModule, MatButtonModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, RouterOutlet, QuickChatComponent]
+    imports: [FuseLoadingBarComponent, FuseVerticalNavigationComponent, NotificationsComponent, UserComponent, NgIf, ButtonModule, LanguagesComponent, FuseFullscreenComponent, SearchComponent, ShortcutsComponent, MessagesComponent, RouterOutlet, QuickChatComponent, FuseIconComponent]
 })
 export class ClassyLayoutComponent implements OnInit, OnDestroy
 {

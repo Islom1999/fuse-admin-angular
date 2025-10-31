@@ -1,6 +1,8 @@
 <!-- Notifications toggle -->
 <button
-    mat-icon-button
+    type="button"
+    pButton
+    class="relative p-button-rounded p-button-text p-button-icon-only"
     (click)="openPanel()"
     #notificationsOrigin>
     <ng-container *ngIf="unreadCount > 0">
@@ -10,7 +12,7 @@
             </span>
         </span>
     </ng-container>
-    <mat-icon [svgIcon]="'heroicons_outline:bell'"></mat-icon>
+    <fuse-icon [svgIcon]="'heroicons_outline:bell'"></fuse-icon>
 </button>
 
 <!-- Notifications panel -->
@@ -22,23 +24,27 @@
         <div class="flex shrink-0 items-center py-4 pr-4 pl-6 bg-primary text-on-primary">
             <div class="sm:hidden -ml-1 mr-3">
                 <button
-                    mat-icon-button
+                    type="button"
+                    pButton
+                    class="p-button-rounded p-button-text p-button-icon-only"
                     (click)="closePanel()">
-                    <mat-icon
+                    <fuse-icon
                         class="icon-size-5 text-current"
-                        [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
+                        [svgIcon]="'heroicons_solid:x-mark'"></fuse-icon>
                 </button>
             </div>
             <div class="text-lg font-medium leading-10">Notifications</div>
             <div class="ml-auto">
                 <button
-                    mat-icon-button
-                    [matTooltip]="'Mark all as read'"
+                    type="button"
+                    pButton
+                    class="p-button-rounded p-button-text p-button-icon-only"
+                    [pTooltip]="'Mark all as read'"
                     [disabled]="unreadCount === 0"
                     (click)="markAllAsRead()">
-                    <mat-icon
+                    <fuse-icon
                         class="icon-size-5 text-current"
-                        [svgIcon]="'heroicons_solid:envelope-open'"></mat-icon>
+                        [svgIcon]="'heroicons_solid:envelope-open'"></fuse-icon>
                 </button>
             </div>
         </div>
@@ -82,10 +88,12 @@
                     <div class="relative flex flex-col my-5 mr-6 ml-2">
                         <!-- Indicator -->
                         <button
-                            class="w-6 h-6 min-h-6"
-                            mat-icon-button
-                            (click)="toggleRead(notification)"
-                            [matTooltip]="notification.read ? 'Mark as unread' : 'Mark as read'">
+                            class="w-6 h-6 min-h-6 flex items-center justify-center rounded-full"
+                            type="button"
+                            pButton
+                            [pTooltip]="notification.read ? 'Mark as unread' : 'Mark as read'"
+                            class="w-6 h-6 min-h-6 flex items-center justify-center rounded-full p-button-rounded p-button-text p-button-icon-only"
+                            (click)="toggleRead(notification)">
                             <span
                                 class="w-2 h-2 rounded-full"
                                 [ngClass]="{'bg-gray-400 dark:bg-gray-500 sm:opacity-0 sm:group-hover:opacity-100': notification.read,
@@ -94,12 +102,14 @@
                         <!-- Remove -->
                         <button
                             class="w-6 h-6 min-h-6 sm:opacity-0 sm:group-hover:opacity-100"
-                            mat-icon-button
+                            type="button"
+                            pButton
+                            class="w-6 h-6 min-h-6 p-button-rounded p-button-text p-button-icon-only sm:opacity-0 sm:group-hover:opacity-100"
                             (click)="delete(notification)"
-                            [matTooltip]="'Remove'">
-                            <mat-icon
+                            [pTooltip]="'Remove'">
+                            <fuse-icon
                                 class="icon-size-4"
-                                [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
+                                [svgIcon]="'heroicons_solid:x-mark'"></fuse-icon>
                         </button>
                     </div>
 
@@ -110,10 +120,10 @@
                     <!-- Icon -->
                     <ng-container *ngIf="notification.icon && !notification.image">
                         <div class="flex shrink-0 items-center justify-center w-8 h-8 mr-4 rounded-full bg-gray-100 dark:bg-gray-700">
-                            <mat-icon
+                            <fuse-icon
                                 class="icon-size-5"
                                 [svgIcon]="notification.icon">
-                            </mat-icon>
+                            </fuse-icon>
                         </div>
                     </ng-container>
                     <!-- Image -->
@@ -144,11 +154,11 @@
 
             <!-- No notifications -->
             <ng-container *ngIf="!notifications || !notifications.length">
-                <div class="flex flex-col flex-auto items-center justify-center sm:justify-start py-12 px-8">
-                    <div class="flex flex-0 items-center justify-center w-14 h-14 rounded-full bg-primary-100 dark:bg-primary-600">
-                        <mat-icon
-                            class="text-primary-700 dark:text-primary-50"
-                            [svgIcon]="'heroicons_outline:bell'"></mat-icon>
+                    <div class="flex flex-col flex-auto items-center justify-center sm:justify-start py-12 px-8">
+                        <div class="flex flex-0 items-center justify-center w-14 h-14 rounded-full bg-primary-100 dark:bg-primary-600">
+                            <fuse-icon
+                                class="text-primary-700 dark:text-primary-50"
+                                [svgIcon]="'heroicons_outline:bell'"></fuse-icon>
                     </div>
                     <div class="mt-5 text-2xl font-semibold tracking-tight">No notifications</div>
                     <div class="w-full max-w-60 mt-1 text-md text-center text-secondary">When you have notifications, they will appear here.</div>

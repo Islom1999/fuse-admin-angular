@@ -6,15 +6,15 @@
     <div
         class="fuse-vertical-navigation-item"
         [ngClass]="{'fuse-vertical-navigation-item-disabled': item.disabled}"
-        [matTooltip]="item.tooltip || ''"
+        [pTooltip]="item.tooltip || ''"
         (click)="toggleCollapsable()">
 
         <!-- Icon -->
         <ng-container *ngIf="item.icon">
-            <mat-icon
+            <fuse-icon
                 class="fuse-vertical-navigation-item-icon"
                 [ngClass]="item.classes?.icon"
-                [svgIcon]="item.icon"></mat-icon>
+                [svgIcon]="item.icon"></fuse-icon>
         </ng-container>
 
         <!-- Title & Subtitle -->
@@ -45,9 +45,9 @@
         </ng-container>
 
         <!-- Arrow -->
-        <mat-icon
+        <fuse-icon
             class="fuse-vertical-navigation-item-arrow icon-size-4"
-            [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+            [svgIcon]="'heroicons_solid:chevron-right'"></fuse-icon>
 
     </div>
 

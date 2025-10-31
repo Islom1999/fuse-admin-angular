@@ -29,16 +29,19 @@
         <div class="flex items-center pr-2 space-x-2">
             <!-- Navigation toggle button -->
             <button
-                mat-icon-button
+                type="button"
+                pButton
+                class="p-button-rounded p-button-text p-button-icon-only"
                 (click)="toggleNavigation('mainNavigation')">
-                <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+                <fuse-icon [svgIcon]="'heroicons_outline:bars-3'"></fuse-icon>
             </button>
             <!-- Navigation appearance toggle button -->
             <button
-                class="hidden md:inline-flex"
-                mat-icon-button
+                type="button"
+                pButton
+                class="hidden md:inline-flex p-button-rounded p-button-text p-button-icon-only"
                 (click)="toggleNavigationAppearance()">
-                <mat-icon [svgIcon]="'heroicons_outline:arrows-right-left'"></mat-icon>
+                <fuse-icon [svgIcon]="'heroicons_outline:arrows-right-left'"></fuse-icon>
             </button>
         </div>
         <!-- Components -->
@@ -50,10 +53,11 @@
             <messages></messages>
             <notifications></notifications>
             <button
-                class="lg:hidden"
-                mat-icon-button
+                type="button"
+                pButton
+                class="lg:hidden p-button-rounded p-button-text p-button-icon-only"
                 (click)="quickChat.toggle()">
-                <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
+                <fuse-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></fuse-icon>
             </button>
             <user></user>
         </div>

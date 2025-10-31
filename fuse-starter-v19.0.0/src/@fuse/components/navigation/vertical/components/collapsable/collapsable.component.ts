@@ -1,10 +1,9 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationEnd, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
+import { FuseIconComponent } from '@fuse/components/icon';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseVerticalNavigationBasicItemComponent } from '@fuse/components/navigation/vertical/components/basic/basic.component';
@@ -12,6 +11,7 @@ import { FuseVerticalNavigationDividerItemComponent } from '@fuse/components/nav
 import { FuseVerticalNavigationGroupItemComponent } from '@fuse/components/navigation/vertical/components/group/group.component';
 import { FuseVerticalNavigationSpacerItemComponent } from '@fuse/components/navigation/vertical/components/spacer/spacer.component';
 import { FuseVerticalNavigationComponent } from '@fuse/components/navigation/vertical/vertical.component';
+import { TooltipModule } from 'primeng/tooltip';
 import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
     templateUrl: './collapsable.component.html',
     animations: fuseAnimations,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgClass, MatTooltipModule, NgIf, MatIconModule, NgFor, FuseVerticalNavigationBasicItemComponent, forwardRef(() => FuseVerticalNavigationCollapsableItemComponent), FuseVerticalNavigationDividerItemComponent, FuseVerticalNavigationGroupItemComponent, FuseVerticalNavigationSpacerItemComponent]
+    imports: [NgClass, TooltipModule, NgIf, FuseIconComponent, NgFor, FuseVerticalNavigationBasicItemComponent, forwardRef(() => FuseVerticalNavigationCollapsableItemComponent), FuseVerticalNavigationDividerItemComponent, FuseVerticalNavigationGroupItemComponent, FuseVerticalNavigationSpacerItemComponent]
 })
 export class FuseVerticalNavigationCollapsableItemComponent implements OnInit, OnDestroy
 {

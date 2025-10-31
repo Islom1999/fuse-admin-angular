@@ -1,17 +1,13 @@
-import { Overlay } from '@angular/cdk/overlay';
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, HostBinding, inject, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, Renderer2, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
-import { MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MatAutocomplete, MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatOptionModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations/public-api';
 import { debounceTime, filter, map, Subject, takeUntil } from 'rxjs';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { FuseIconComponent } from '@fuse/components/icon';
 
 @Component({
     selector: 'search',
@@ -19,16 +15,7 @@ import { debounceTime, filter, map, Subject, takeUntil } from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     exportAs: 'fuseSearch',
     animations: fuseAnimations,
-    imports: [NgIf, MatButtonModule, MatIconModule, FormsModule, MatAutocompleteModule, ReactiveFormsModule, MatOptionModule, NgFor, RouterLink, NgTemplateOutlet, MatFormFieldModule, MatInputModule, NgClass],
-    providers: [
-        {
-            provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-            useFactory: () => {
-                const overlay = inject(Overlay);
-                return () => overlay.scrollStrategies.block();
-            },
-        },
-    ]
+    imports: [NgIf, ButtonModule, FuseIconComponent, FormsModule, ReactiveFormsModule, NgFor, RouterLink, NgTemplateOutlet, NgClass, InputTextModule]
 })
 export class SearchComponent implements OnChanges, OnInit, OnDestroy
 {
@@ -40,7 +27,6 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
     opened: boolean = false;
     resultSets: any[];
     searchControl: UntypedFormControl = new UntypedFormControl();
-    private _matAutocomplete: MatAutocomplete;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -89,17 +75,6 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
                 value.nativeElement.focus();
             });
         }
-    }
-
-    /**
-     * Setter for mat-autocomplete element reference
-     *
-     * @param value
-     */
-    @ViewChild('matAutocomplete')
-    set matAutocomplete(value: MatAutocomplete)
-    {
-        this._matAutocomplete = value;
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -184,14 +159,9 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
      */
     onKeydown(event: KeyboardEvent): void
     {
-        // Escape
-        if ( event.code === 'Escape' )
+        if ( event.code === 'Escape' && this.appearance === 'bar' )
         {
-            // If the appearance is 'bar' and the mat-autocomplete is not open, close the search
-            if ( this.appearance === 'bar' && !this._matAutocomplete.isOpen )
-            {
-                this.close();
-            }
+            this.close();
         }
     }
 
@@ -225,6 +195,7 @@ export class SearchComponent implements OnChanges, OnInit, OnDestroy
 
         // Clear the search input
         this.searchControl.setValue('');
+        this.resultSets = null;
 
         // Close the search
         this.opened = false;

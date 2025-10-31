@@ -51,6 +51,7 @@
                             ]
                         },
                         "styles": [
+                            "node_modules/primeicons/primeicons.css",
                             "src/@fuse/styles/tailwind.scss",
                             "src/@fuse/styles/themes.scss",
                             "src/styles/vendors.scss",
@@ -90,10 +91,12 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "fuse:build:production"
+                            "buildTarget": "fuse:build:production",
+                            "port": 4222
                         },
                         "development": {
-                            "buildTarget": "fuse:build:development"
+                            "buildTarget": "fuse:build:development",
+                            "port": 4222
                         }
                     },
                     "defaultConfiguration": "development"
@@ -119,6 +122,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "node_modules/primeicons/primeicons.css",
                             "src/styles/styles.scss"
                         ],
                         "scripts": []

@@ -1,8 +1,9 @@
 import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { FuseIconComponent } from '@fuse/components/icon';
+import { PrimeIcons } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fullscreen.types';
 
 @Component({
@@ -11,12 +12,13 @@ import { FSDocument, FSDocumentElement } from '@fuse/components/fullscreen/fulls
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'fuseFullscreen',
-    imports: [MatButtonModule, MatTooltipModule, NgTemplateOutlet, MatIconModule]
+    imports: [ButtonModule, TooltipModule, NgTemplateOutlet, FuseIconComponent]
 })
 export class FuseFullscreenComponent implements OnInit
 {
     @Input() iconTpl: TemplateRef<any>;
     @Input() tooltip: string;
+    protected readonly defaultIcon: string = PrimeIcons.EXPAND;
     private _fsDoc: FSDocument;
     private _fsDocEl: FSDocumentElement;
     private _isFullscreen: boolean = false;
