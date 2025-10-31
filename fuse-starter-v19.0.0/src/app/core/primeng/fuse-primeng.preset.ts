@@ -52,13 +52,11 @@ export const FusePrimePreset = definePreset(Aura, {
                     hoverColor: 'var(--fuse-primary-600)',
                     activeColor: 'var(--fuse-primary-700)',
                 },
-                accent: {
-                    color: 'var(--fuse-accent-default)',
-                    contrastColor: 'var(--fuse-accent-contrast-default)',
-                },
-                warn: {
-                    color: 'var(--fuse-warn-default)',
-                    contrastColor: 'var(--fuse-warn-contrast-default)',
+                highlight: {
+                    background: 'var(--fuse-accent-default)',
+                    color: 'var(--fuse-accent-contrast-default)',
+                    focusBackground: 'var(--fuse-accent-200)',
+                    focusColor: 'var(--fuse-accent-contrast-default)',
                 },
                 text: {
                     color: 'var(--fuse-foreground-text)',
@@ -84,7 +82,7 @@ export const FusePrimePreset = definePreset(Aura, {
                 },
                 list: {
                     option: {
-                        hoverBackground: 'var(--fuse-background-hover)',
+                        focusBackground: 'var(--fuse-background-hover)',
                         selectedBackground: 'var(--fuse-primary-50)',
                         selectedColor: 'var(--fuse-primary-700)',
                     },
@@ -107,14 +105,13 @@ export const FusePrimePreset = definePreset(Aura, {
                     hoverColor: 'var(--fuse-primary-200)',
                     activeColor: 'var(--fuse-primary-100)',
                 },
-                accent: {
-                    color: 'var(--fuse-accent-default)',
-                    contrastColor: 'var(--fuse-accent-contrast-default)',
+                highlight: {
+                    background: 'var(--fuse-accent-default)',
+                    color: 'var(--fuse-accent-contrast-default)',
+                    focusBackground: 'var(--fuse-accent-200)',
+                    focusColor: 'var(--fuse-accent-contrast-default)',
                 },
-                warn: {
-                    color: 'var(--fuse-warn-default)',
-                    contrastColor: 'var(--fuse-warn-contrast-default)',
-                },
+
                 text: {
                     color: 'var(--fuse-foreground-text)',
                     mutedColor: 'var(--fuse-foreground-secondary)',
@@ -139,10 +136,8 @@ export const FusePrimePreset = definePreset(Aura, {
                 },
                 list: {
                     option: {
-                        hoverBackground: lighten(
-                            'var(--fuse-background-card)',
-                            6
-                        ),
+                        focusBackground:
+                            'lighten(var(--fuse-background-card), 6)',
                         selectedBackground: mix(
                             'var(--fuse-primary-default)',
                             'transparent',

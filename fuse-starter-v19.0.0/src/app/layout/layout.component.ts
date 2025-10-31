@@ -1,5 +1,5 @@
-import { DOCUMENT, NgIf } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation, DOCUMENT } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FuseConfig, FuseConfigService } from '@fuse/services/config';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';

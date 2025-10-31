@@ -1,5 +1,5 @@
-import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, TemplateRef, ViewEncapsulation, DOCUMENT } from '@angular/core';
 import { FuseIconComponent } from '@fuse/components/icon';
 import { PrimeIcons } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';

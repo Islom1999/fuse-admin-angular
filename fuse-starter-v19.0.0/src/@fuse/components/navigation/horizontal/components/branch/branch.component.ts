@@ -1,6 +1,15 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    forwardRef,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { FuseHorizontalNavigationBasicItemComponent } from '@fuse/components/navigation/horizontal/components/basic/basic.component';
 import { FuseHorizontalNavigationDividerItemComponent } from '@fuse/components/navigation/horizontal/components/divider/divider.component';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
@@ -8,16 +17,27 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseIconComponent } from '@fuse/components/icon';
 import { TooltipModule } from 'primeng/tooltip';
-import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
 import { Subject, takeUntil } from 'rxjs';
+import { Popover } from 'primeng/popover';
 
 @Component({
     selector: 'fuse-horizontal-navigation-branch-item',
     templateUrl: './branch.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgClass, NgTemplateOutlet, NgFor, FuseHorizontalNavigationBasicItemComponent, forwardRef(() => FuseHorizontalNavigationBranchItemComponent), FuseHorizontalNavigationDividerItemComponent, TooltipModule, FuseIconComponent, OverlayPanelModule]
+    imports: [
+        NgIf,
+        NgClass,
+        NgTemplateOutlet,
+        NgFor,
+        FuseHorizontalNavigationBasicItemComponent,
+        forwardRef(() => FuseHorizontalNavigationBranchItemComponent),
+        FuseHorizontalNavigationDividerItemComponent,
+        TooltipModule,
+        FuseIconComponent,
+    ],
 })
-export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDestroy
+export class FuseHorizontalNavigationBranchItemComponent
+    implements OnInit, OnDestroy
 {
     /* eslint-disable @typescript-eslint/naming-convention */
     static ngAcceptInputType_child: BooleanInput;
@@ -26,7 +46,7 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     @Input() child: boolean = false;
     @Input() item: FuseNavigationItem;
     @Input() name: string;
-    @ViewChild('overlayPanel') overlayPanel: OverlayPanel;
+    @ViewChild('overlayPanel') overlayPanel: Popover;
 
     menuOpen: boolean = false;
     private _fuseHorizontalNavigationComponent: FuseHorizontalNavigationComponent;
@@ -37,10 +57,8 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _fuseNavigationService: FuseNavigationService,
-    )
-    {
-    }
+        private _fuseNavigationService: FuseNavigationService
+    ) {}
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -49,26 +67,24 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Get the parent navigation component
-        this._fuseHorizontalNavigationComponent = this._fuseNavigationService.getComponent(this.name);
+        this._fuseHorizontalNavigationComponent =
+            this._fuseNavigationService.getComponent(this.name);
 
         // Subscribe to onRefreshed on the navigation component
-        this._fuseHorizontalNavigationComponent.onRefreshed.pipe(
-            takeUntil(this._unsubscribeAll),
-        ).subscribe(() =>
-        {
-            // Mark for check
-            this._changeDetectorRef.markForCheck();
-        });
+        this._fuseHorizontalNavigationComponent.onRefreshed
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(() => {
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            });
     }
 
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
@@ -81,38 +97,31 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
     /**
      * Trigger the change detection
      */
-    triggerChangeDetection(): void
-    {
+    triggerChangeDetection(): void {
         // Mark for check
         this._changeDetectorRef.markForCheck();
     }
 
-    toggleOverlay(event: Event, panel: OverlayPanel): void
-    {
-        if ( this.item.disabled )
-        {
+    toggleOverlay(event: Event, panel: Popover): void {
+        if (this.item.disabled) {
             return;
         }
 
         panel.toggle(event);
     }
 
-    onOverlayShow(): void
-    {
+    onOverlayShow(): void {
         this.menuOpen = true;
         this.triggerChangeDetection();
     }
 
-    onOverlayHide(): void
-    {
+    onOverlayHide(): void {
         this.menuOpen = false;
         this.triggerChangeDetection();
     }
 
-    toggleChildMenu(): void
-    {
-        if ( this.item.disabled )
-        {
+    toggleChildMenu(): void {
+        if (this.item.disabled) {
             return;
         }
 
@@ -126,8 +135,7 @@ export class FuseHorizontalNavigationBranchItemComponent implements OnInit, OnDe
      * @param index
      * @param item
      */
-    trackByFn(index: number, item: any): any
-    {
+    trackByFn(index: number, item: any): any {
         return item.id || index;
     }
 }
