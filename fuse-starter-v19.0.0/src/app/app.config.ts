@@ -23,6 +23,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { FusePrimePreset } from './core/primeng/fuse-primeng.preset';
+import { PrimeNgThemeService } from './core/primeng/primeng-theme.service';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -41,10 +42,16 @@ export const appConfig: ApplicationConfig = {
                 preset: FusePrimePreset,
                 options: {
                     prefix: 'p',
-                    darkModeSelector: '.dark',
+                    darkModeSelector: 'html.dark',
                     cssLayer: false, // Disable CSS layers for now
                 },
             },
+        }),
+
+        // Initialize PrimeNG Theme Service
+        provideAppInitializer(() => {
+            const primeNgThemeService = inject(PrimeNgThemeService);
+            // Service will automatically start listening to theme changes
         }),
 
         // Transloco Config

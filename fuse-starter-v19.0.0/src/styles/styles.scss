@@ -13,6 +13,26 @@
     color-scheme: light;
 }
 
-.dark {
+html.dark {
+    color-scheme: dark;
+}
+
+/* Bridge Fuse colors to PrimeNG if needed */
+html {
+    --p-primary-50: rgb(var(--fuse-primary-50));
+    --p-primary-100: rgb(var(--fuse-primary-100));
+    --p-primary-200: rgb(var(--fuse-primary-200));
+    --p-primary-300: rgb(var(--fuse-primary-300));
+    --p-primary-400: rgb(var(--fuse-primary-400));
+    --p-primary-500: rgb(var(--fuse-primary-500));
+    --p-primary-600: rgb(var(--fuse-primary-600));
+    --p-primary-700: rgb(var(--fuse-primary-700));
+    --p-primary-800: rgb(var(--fuse-primary-800));
+    --p-primary-900: rgb(var(--fuse-primary-900));
+    --p-primary-950: rgb(var(--fuse-primary-950));
+}
+
+/* Ensure PrimeNG components respect dark mode */
+html.dark .p-component {
     color-scheme: dark;
 }
