@@ -1,150 +1,64 @@
-import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
+import Aura from '@primeng/themes/aura';
 
-// 🔧 Rang manipulyatsiya yordamchilari
-const mix = (base: string, overlay: string, weight: number): string =>
-    `color-mix(in srgb, ${base} ${100 - weight}%, ${overlay} ${weight}%)`;
-
-const lighten = (color: string, amount = 8): string =>
-    mix(color, '#ffffff', amount);
-
-const darken = (color: string, amount = 12): string =>
-    mix(color, '#000000', amount);
-
-// 🧩 PrimeNG uchun Fuse / User Themes bilan mos preset
 export const FusePrimePreset = definePreset(Aura, {
     semantic: {
-        focusRing: {
-            color: 'var(--fuse-primary-default)',
-        },
-        // Primary ranglar (har bir tema uchun dinamik)
         primary: {
-            50: 'var(--fuse-primary-50)',
-            100: 'var(--fuse-primary-100)',
-            200: 'var(--fuse-primary-200)',
-            300: 'var(--fuse-primary-300)',
-            400: 'var(--fuse-primary-400)',
-            500: 'var(--fuse-primary-500)',
-            600: 'var(--fuse-primary-600)',
-            700: 'var(--fuse-primary-700)',
-            800: 'var(--fuse-primary-800)',
-            900: 'var(--fuse-primary-900)',
-            950: 'var(--fuse-primary-950)',
+            50: '{indigo.50}',
+            100: '{indigo.100}',
+            200: '{indigo.200}',
+            300: '{indigo.300}',
+            400: '{indigo.400}',
+            500: '{indigo.500}',
+            600: '{indigo.600}',
+            700: '{indigo.700}',
+            800: '{indigo.800}',
+            900: '{indigo.900}',
+            950: '{indigo.950}',
         },
-
-        // Rang sxemasi (yorug‘ va qorong‘i)
         colorScheme: {
             light: {
-                surface: {
-                    0: 'var(--fuse-background-card)',
-                    50: 'var(--fuse-background-base)',
-                    100: 'var(--fuse-background-hover)',
-                    200: 'var(--fuse-foreground-divider)',
-                    300: 'var(--fuse-foreground-disabled)',
-                    400: 'var(--fuse-foreground-hint)',
-                    500: 'var(--fuse-foreground-secondary)',
-                    700: 'var(--fuse-foreground-text)',
-                    900: '#000000',
-                },
                 primary: {
-                    color: 'var(--fuse-primary-default)',
-                    contrastColor: 'var(--fuse-primary-contrast-default)',
-                    hoverColor: 'var(--fuse-primary-600)',
-                    activeColor: 'var(--fuse-primary-700)',
+                    color: '{indigo.600}',
+                    contrastColor: '#ffffff',
+                    hoverColor: '{indigo.700}',
+                    activeColor: '{indigo.800}',
                 },
-                highlight: {
-                    background: 'var(--fuse-accent-default)',
-                    color: 'var(--fuse-accent-contrast-default)',
-                    focusBackground: 'var(--fuse-accent-200)',
-                    focusColor: 'var(--fuse-accent-contrast-default)',
-                },
-                text: {
-                    color: 'var(--fuse-foreground-text)',
-                    mutedColor: 'var(--fuse-foreground-secondary)',
-                    hoverColor: darken('var(--fuse-foreground-text)', 10),
-                },
-                content: {
-                    background: 'var(--fuse-background-card)',
-                    hoverBackground: 'var(--fuse-background-hover)',
-                    borderColor: 'var(--fuse-foreground-divider)',
-                    color: 'var(--fuse-foreground-text)',
-                },
-                overlay: {
-                    popover: {
-                        background: 'var(--fuse-background-card)',
-                        borderColor: 'var(--fuse-foreground-divider)',
-                        color: 'var(--fuse-foreground-text)',
-                    },
-                    modal: {
-                        background: 'var(--fuse-background-dialog)',
-                        color: 'var(--fuse-foreground-text)',
-                    },
-                },
-                list: {
-                    option: {
-                        focusBackground: 'var(--fuse-background-hover)',
-                        selectedBackground: 'var(--fuse-primary-50)',
-                        selectedColor: 'var(--fuse-primary-700)',
-                    },
+                surface: {
+                    0: '#ffffff',
+                    50: '{slate.50}',
+                    100: '{slate.100}',
+                    200: '{slate.200}',
+                    300: '{slate.300}',
+                    400: '{slate.400}',
+                    500: '{slate.500}',
+                    600: '{slate.600}',
+                    700: '{slate.700}',
+                    800: '{slate.800}',
+                    900: '{slate.900}',
+                    950: '{slate.950}',
                 },
             },
-
             dark: {
-                surface: {
-                    0: 'var(--fuse-background-card)',
-                    50: 'var(--fuse-background-base)',
-                    100: lighten('var(--fuse-background-card)', 8),
-                    300: 'var(--fuse-foreground-disabled)',
-                    500: 'var(--fuse-foreground-secondary)',
-                    700: 'var(--fuse-foreground-text)',
-                    900: darken('var(--fuse-background-base)', 8),
-                },
                 primary: {
-                    color: 'var(--fuse-primary-300)',
-                    contrastColor: 'var(--fuse-primary-contrast-default)',
-                    hoverColor: 'var(--fuse-primary-200)',
-                    activeColor: 'var(--fuse-primary-100)',
+                    color: '{indigo.500}',
+                    contrastColor: '#ffffff',
+                    hoverColor: '{indigo.400}',
+                    activeColor: '{indigo.300}',
                 },
-                highlight: {
-                    background: 'var(--fuse-accent-default)',
-                    color: 'var(--fuse-accent-contrast-default)',
-                    focusBackground: 'var(--fuse-accent-200)',
-                    focusColor: 'var(--fuse-accent-contrast-default)',
-                },
-
-                text: {
-                    color: 'var(--fuse-foreground-text)',
-                    mutedColor: 'var(--fuse-foreground-secondary)',
-                    hoverColor: lighten('var(--fuse-foreground-text)', 8),
-                },
-                content: {
-                    background: 'var(--fuse-background-card)',
-                    hoverBackground: lighten('var(--fuse-background-card)', 8),
-                    borderColor: 'var(--fuse-foreground-divider)',
-                    color: 'var(--fuse-foreground-text)',
-                },
-                overlay: {
-                    popover: {
-                        background: 'var(--fuse-background-card)',
-                        borderColor: 'var(--fuse-foreground-divider)',
-                        color: 'var(--fuse-foreground-text)',
-                    },
-                    modal: {
-                        background: 'var(--fuse-background-dialog)',
-                        color: 'var(--fuse-foreground-text)',
-                    },
-                },
-                list: {
-                    option: {
-                        focusBackground:
-                            'lighten(var(--fuse-background-card), 6)',
-                        selectedBackground: mix(
-                            'var(--fuse-primary-default)',
-                            'transparent',
-                            80
-                        ),
-                        selectedColor: 'var(--fuse-primary-100)',
-                    },
+                surface: {
+                    0: '#ffffff',
+                    50: '{zinc.50}',
+                    100: '{zinc.100}',
+                    200: '{zinc.200}',
+                    300: '{zinc.300}',
+                    400: '{zinc.400}',
+                    500: '{zinc.500}',
+                    600: '{zinc.600}',
+                    700: '{zinc.700}',
+                    800: '{zinc.800}',
+                    900: '{zinc.900}',
+                    950: '{zinc.950}',
                 },
             },
         },

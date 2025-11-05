@@ -36,14 +36,13 @@ export const appConfig: ApplicationConfig = {
 
         provideAnimationsAsync(),
         providePrimeNG({
+            ripple: true,
             theme: {
                 preset: FusePrimePreset,
                 options: {
-                    darkModeSelector: '.my-app-dark',
-                    cssLayer: {
-                        name: 'primeng',
-                        order: 'theme, base, primeng',
-                    },
+                    prefix: 'p',
+                    darkModeSelector: '.dark',
+                    cssLayer: false, // Disable CSS layers for now
                 },
             },
         }),

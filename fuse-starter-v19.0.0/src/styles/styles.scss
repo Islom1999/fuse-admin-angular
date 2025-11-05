@@ -2,3 +2,17 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+
+/* Tailwind Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PrimeNG Theme Support */
+:root {
+    color-scheme: light;
+}
+
+.dark {
+    color-scheme: dark;
+}
