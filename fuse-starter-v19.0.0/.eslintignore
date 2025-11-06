@@ -8,17 +8,17 @@ src/environments/*.tscoverage
 
 src/@fuse
 
-src/app/coresrc/environments/*.ts
+src/app/core
 
-src/app/mock-apisrc/@fuse
+src/app/mock-api
 
-src/app/layoutsrc/app/core
+src/app/layout
 
-src/app/modules/authsrc/app/mock-api
+src/app/modules/auth
 
-*.jssrc/app/layout
+*.js
 
-*.d.tssrc/app/modules/auth
+*.d.ts
 
 .vscode
 
