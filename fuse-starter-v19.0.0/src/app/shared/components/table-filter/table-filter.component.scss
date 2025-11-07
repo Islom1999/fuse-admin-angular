@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.filter-content {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::ng-deep {
+  .filter-content {
+    .formly-field {
+      margin-bottom: 0;
+
+      // Make label and input vertical (flex-col)
+      .p-field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0;
+      }
+    }
+
+    formly-form {
+      width: 100%;
+    }
+
+    // Input field styling
+    .p-inputtext,
+    .p-dropdown,
+    .p-multiselect,
+    .p-calendar {
+      width: 100%;
+    }
+
+    // Label styling
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #374151;
+    }
+  }
+}

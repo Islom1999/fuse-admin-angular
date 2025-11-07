@@ -1,0 +1,50 @@
+<div class="bg-white border border-gray-200 rounded-lg mb-4 shadow-sm">
+  <!-- Header - Collapsible -->
+  <div
+    class="filter-header flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+    (click)="toggleFilter()"
+  >
+    <div class="flex items-center gap-3">
+      <i class="pi pi-filter text-lg text-primary-600"></i>
+      <span class="font-semibold text-gray-800">{{ 'admin.common.filters' | transloco }}</span>
+      @if (hasActiveFilters) {
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800"
+        >
+          {{ getActiveFiltersCount() }}
+        </span>
+      }
+    </div>
+
+    <div class="flex items-center gap-2">
+      @if (config.showResetButton !== false && hasActiveFilters) {
+        <p-button
+          type="button"
+          [label]="'admin.grid.actions.resetFilters' | transloco"
+          severity="secondary"
+          [text]="true"
+          icon="pi pi-times"
+          size="small"
+          (onClick)="onReset(); $event.stopPropagation()"
+        />
+      }
+    </div>
+  </div>
+
+  <!-- Form Fields - Collapsible Content -->
+  @if (isExpanded) {
+    <div class="filter-content border-t border-gray-200 p-4 bg-gray-50">
+      <form [formGroup]="form">
+        <formly-form [form]="form" [fields]="fields" [model]="model">
+          <ng-template #fieldWrapper>
+            <div [class]="gridClass">
+              <ng-container *ngFor="let field of fields">
+                <formly-field [field]="field"></formly-field>
+              </ng-container>
+            </div>
+          </ng-template>
+        </formly-form>
+      </form>
+    </div>
+  }
+</div>

@@ -1,0 +1,253 @@
+﻿<app-wrapper-basic [title]="title">
+  <ng-container titleLeft>
+    <ng-container *ngIf="titleTemplate">
+      <ng-container *ngTemplateOutlet="titleTemplate; context: { $implicit: table }"></ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-container titleRight>
+    <ng-content select="[titleRight]"></ng-content>
+    <div class="flex justify-end items-center gap-4">
+      @if (showExportButtons) {
+        <p-button
+          icon="pi pi-download"
+          severity="primary"
+          [text]="true"
+          [rounded]="true"
+          type="button"
+          (onClick)="exportToExcel()"
+          [attr.aria-label]="'admin.grid.actions.exportExcel' | transloco"
+        />
+        <p-button
+          icon="pi pi-upload"
+          [text]="true"
+          [rounded]="true"
+          type="button"
+          [attr.aria-label]="'admin.grid.actions.exportCsv' | transloco"
+        />
+      }
+    </div>
+  </ng-container>
+
+  <div body>
+    <ng-container *ngIf="templateFilters">
+      <ng-container
+        *ngTemplateOutlet="templateFilters; context: { $implicit: table }"
+      ></ng-container>
+    </ng-container>
+
+    @if (filterableColumns.length) {
+      <form
+        [formGroup]="filterForm"
+        class="grid gap-3 mb-6 md:grid-cols-2 xl:grid-cols-3 bg-white border border-gray-200 rounded-2xl p-4"
+      >
+        @for (column of filterableColumns; track column.field) {
+          <div class="flex flex-col gap-2">
+            <label [for]="column.field" class="text-sm font-medium">
+              {{ getFilterLabel(column) | transloco }}
+            </label>
+            @switch (column.filterType) {
+              @case ('select') {
+                <p-select
+                  [id]="column.field"
+                  [formControlName]="column.field"
+                  [options]="column.filterOptions || []"
+                  optionLabel="label"
+                  optionValue="value"
+                  [placeholder]="column.filterPlaceholder || getFilterLabel(column) | transloco"
+                  [showClear]="true"
+                  styleClass="w-full"
+                >
+                  <ng-template pTemplate="dropdownicon">
+                    <i class="pi pi-chevron-down"></i>
+                  </ng-template>
+                </p-select>
+              }
+              @case ('boolean') {
+                <p-select
+                  [id]="column.field"
+                  [formControlName]="column.field"
+                  [options]="[
+                    { label: 'admin.grid.filter.yes' | transloco, value: 'true' },
+                    { label: 'admin.grid.filter.no' | transloco, value: 'false' },
+                  ]"
+                  optionLabel="label"
+                  optionValue="value"
+                  [placeholder]="column.filterPlaceholder || getFilterLabel(column) | transloco"
+                  [showClear]="true"
+                  styleClass="w-full"
+                />
+              }
+              @default {
+                <div class="p-inputgroup">
+                  <input
+                    pInputText
+                    [id]="column.field"
+                    [formControlName]="column.field"
+                    [placeholder]="column.filterPlaceholder || getFilterLabel(column) | transloco"
+                    type="text"
+                    class="w-full"
+                  />
+                  @if (filterForm.get(column.field)?.value) {
+                    <button
+                      type="button"
+                      pButton
+                      icon="pi pi-times"
+                      class="p-button-text"
+                      [attr.aria-label]="'admin.grid.actions.clearFilter' | transloco"
+                      (click)="clearSingleFilter(column.field)"
+                    ></button>
+                  }
+                </div>
+              }
+            }
+          </div>
+        }
+
+        <div class="flex items-center justify-end gap-2 md:col-span-2 xl:col-span-3">
+          <p-button
+            type="button"
+            label="{{ 'admin.grid.actions.resetFilters' | transloco }}"
+            severity="secondary"
+            [outlined]="true"
+            (onClick)="resetFilters()"
+            [disabled]="!hasActiveFilters"
+          />
+        </div>
+      </form>
+    }
+
+    <div class="grid-container">
+      <!-- Add filter section -->
+      @if (customTableFilterTemplate) {
+        <div class="filter-section mb-4">
+          <ng-container *ngTemplateOutlet="customTableFilterTemplate"></ng-container>
+        </div>
+      }
+
+      <!-- Table content -->
+      <div>
+        <div class="header flex justify-between items-center my-2">
+          <div>
+            @if (showArchiveSplitButton) {
+              <p-selectbutton
+                [options]="[
+                  { label: 'active.data' | transloco, value: false },
+                  { label: 'archive.data' | transloco, value: true },
+                ]"
+                [value]="this.$data.isArchiveView()"
+                (onChange)="onArchiveViewChange($event)"
+                optionLabel="label"
+                optionValue="value"
+                aria-labelledby="basic"
+              />
+            }
+          </div>
+
+          @if (showAddButton) {
+            <p-button
+              label="{{ addButtonText | transloco }}"
+              [icon]="addButtonIcon || 'pi pi-plus'"
+              (onClick)="onClickAdd.emit()"
+            />
+          }
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <p-table
+            #dt
+            [value]="dataSource"
+            [totalRecords]="$data.totalRecords()"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="$data.pageEvent.pageSize"
+            [first]="$data.pageEvent.pageIndex * $data.pageEvent.pageSize"
+            [rowsPerPageOptions]="[10, 20, 50, 100]"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="{{
+              'admin.grid.total' | transloco: { count: $data.totalRecords() }
+            }}"
+            (onLazyLoad)="onPageChange($event)"
+            (onSort)="onSort($event)"
+            [sortField]="sortField"
+            [sortOrder]="sortOrder"
+            styleClass="p-datatable-gridlines"
+            [tableStyle]="{ 'min-width': '50rem' }"
+          >
+            <ng-template pTemplate="header">
+              <tr class="bg-gray-50">
+                @for (col of columns; track col.field) {
+                  <th [pSortableColumn]="col.field" class="font-semibold text-gray-700 py-4 px-4">
+                    <div class="flex items-center gap-2">
+                      {{ col.header | transloco }}
+                      <p-sortIcon [field]="col.field" />
+                    </div>
+                  </th>
+                }
+              </tr>
+            </ng-template>
+
+            <!-- Loading Skeleton -->
+            @if (isLoading) {
+              <ng-template pTemplate="body">
+                @for (item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track item) {
+                  <tr>
+                    @for (col of columns; track col.field) {
+                      <td class="py-4 px-4">
+                        <p-skeleton height="1.5rem" styleClass="mb-2"></p-skeleton>
+                      </td>
+                    }
+                  </tr>
+                }
+              </ng-template>
+            } @else {
+              <!-- Actual Data -->
+              <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+                <tr
+                  (click)="handleRowClick(row)"
+                  class="cursor-pointer hover:bg-blue-50 transition-colors duration-150"
+                  [class.bg-gray-50]="rowIndex % 2 === 1"
+                >
+                  @for (col of columns; track col.field) {
+                    <td class="py-3 px-4">
+                      @if (col.template === 'custom' && templateCostumFields) {
+                        <ng-container
+                          *ngTemplateOutlet="
+                            templateCostumFields;
+                            context: { column: col, row: row }
+                          "
+                        />
+                      } @else if (col.template === 'date') {
+                        <span class="text-gray-600 text-sm">
+                          {{ row[col.field] | date: 'dd.MM.yyyy HH:mm' }}
+                        </span>
+                      } @else {
+                        <span class="text-gray-800">
+                          {{ row[col.field] }}
+                        </span>
+                      }
+                    </td>
+                  }
+                </tr>
+              </ng-template>
+
+              <!-- Empty Message -->
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td [attr.colspan]="columns.length" class="text-center py-8">
+                    <div class="flex flex-col items-center gap-3">
+                      <i class="pi pi-inbox text-gray-400 text-4xl"></i>
+                      <p class="text-gray-500 text-lg">
+                        {{ 'admin.grid.noData' | transloco }}
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+            }
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-wrapper-basic>

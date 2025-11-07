@@ -32,6 +32,8 @@
     "@angular/platform-browser-dynamic": "20.3.9",
     "@angular/router": "20.3.9",
     "@ngneat/transloco": "6.0.0",
+    "@ngx-formly/core": "^7.0.0",
+    "@ngx-formly/primeng": "^7.0.0",
     "@primeng/themes": "^20.2.0",
     "apexcharts": "3.44.0",
     "crypto-js": "3.3.0",

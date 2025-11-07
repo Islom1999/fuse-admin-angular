@@ -20,6 +20,16 @@ import { providePrimeNG } from 'primeng/config'
 import Aura from '@primeng/themes/aura'
 import { FusePrimePreset } from './core/primeng/fuse-primeng.preset'
 import { PrimeNgThemeService } from './core/primeng/primeng-theme.service'
+import { provideFormlyCore, FORMLY_CONFIG } from '@ngx-formly/core'
+import { withFormlyPrimeNG } from '@ngx-formly/primeng'
+import { registerTranslateExtension } from './shared/ngx-formly/translate.extension'
+import { TypeAutocomplete } from './shared/ngx-formly/type-autocomplete'
+import { TypeDatepicker } from './shared/ngx-formly/type-datepicker'
+import { TypeInputMask } from './shared/ngx-formly/type-input-mask'
+import { TypeInputNumber } from './shared/ngx-formly/type-input-number'
+import { TypeMultiSelect } from './shared/ngx-formly/type-multiselect'
+import { TypeTextArea } from './shared/ngx-formly/type-textarea'
+import { TypeUpload } from './shared/ngx-formly/type-upload.component'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -49,6 +59,56 @@ export const appConfig: ApplicationConfig = {
       const primeNgThemeService = inject(PrimeNgThemeService)
       // Service will automatically start listening to theme changes
     }),
+
+    // Formly Config
+    provideFormlyCore([
+      ...withFormlyPrimeNG(),
+      {
+        types: [
+          {
+            name: 'textarea',
+            component: TypeTextArea,
+            wrappers: ['form-field'],
+          },
+          {
+            name: 'input-number',
+            component: TypeInputNumber,
+            wrappers: ['form-field'],
+          },
+          {
+            name: 'input-mask',
+            component: TypeInputMask,
+            wrappers: ['form-field'],
+          },
+          {
+            name: 'datepicker',
+            component: TypeDatepicker,
+            wrappers: ['form-field'],
+          },
+          {
+            name: 'autocomplete',
+            component: TypeAutocomplete,
+            wrappers: ['form-field'],
+          },
+          {
+            name: 'multiselect',
+            component: TypeMultiSelect,
+            wrappers: ['form-field'],
+          },
+          {
+            name: 'upload',
+            component: TypeUpload,
+            wrappers: ['form-field'],
+          },
+        ],
+      },
+    ]),
+    {
+      provide: FORMLY_CONFIG,
+      multi: true,
+      useFactory: registerTranslateExtension,
+      deps: [TranslocoService],
+    },
 
     // Transloco Config
     provideTransloco({
