@@ -1,0 +1,19 @@
+<app-grid
+  [title]="'admin.foydalanuvchiBoshqaruvi.title'"
+  [columns]="columns"
+  [addButtonText]="'admin.foydalanuvchiBoshqaruvi.addNew'"
+  addButtonIcon="pi pi-plus"
+  [showAddButton]="true"
+  (onClickAdd)="onAddClick()"
+  (onRowSelect)="onRowSelect($event)"
+  [$data]="gridService"
+>
+  <ng-template #costumTableFilter>
+    <app-table-filter
+      [config]="filterConfig"
+      [debounceTime]="500"
+      (filterChange)="onFilterChange($event)"
+      (filterReset)="onFilterReset()"
+    />
+  </ng-template>
+</app-grid>

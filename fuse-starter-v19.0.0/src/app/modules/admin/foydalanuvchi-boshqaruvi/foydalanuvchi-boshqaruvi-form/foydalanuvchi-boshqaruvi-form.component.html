@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-4 p-6">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+
+    <form-action-buttons
+      [isEditMode]="isEditMode"
+      [isFormValid]="form.valid"
+      (delete)="onDelete()"
+      (cancel)="onCancel()"
+      (submit)="onSubmit()"
+    />
+  </form>
+</div>

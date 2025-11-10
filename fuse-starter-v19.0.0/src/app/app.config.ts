@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http'
+import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core'
 import { provideAnimations } from '@angular/platform-browser/animations'
 import {
@@ -17,7 +17,6 @@ import { mockApiServices } from 'app/mock-api'
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader'
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { providePrimeNG } from 'primeng/config'
-import Aura from '@primeng/themes/aura'
 import { FusePrimePreset } from './core/primeng/fuse-primeng.preset'
 import { PrimeNgThemeService } from './core/primeng/primeng-theme.service'
 import { provideFormlyCore, FORMLY_CONFIG } from '@ngx-formly/core'
@@ -30,16 +29,24 @@ import { TypeInputNumber } from './shared/ngx-formly/type-input-number'
 import { TypeMultiSelect } from './shared/ngx-formly/type-multiselect'
 import { TypeTextArea } from './shared/ngx-formly/type-textarea'
 import { TypeUpload } from './shared/ngx-formly/type-upload.component'
+import { environment } from 'environments/environment.development'
+import { DITokens } from './core/utils/di-tokens'
+import { authInterceptor } from './core/auth/auth.interceptor'
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(
       appRoutes,
       withPreloading(PreloadAllModules),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
+
+    {
+      provide: DITokens.API_BASE_URL,
+      useValue: environment.apiUrl,
+    },
 
     provideAnimationsAsync(),
     providePrimeNG({
@@ -56,7 +63,7 @@ export const appConfig: ApplicationConfig = {
 
     // Initialize PrimeNG Theme Service
     provideAppInitializer(() => {
-      const primeNgThemeService = inject(PrimeNgThemeService)
+      inject(PrimeNgThemeService)
       // Service will automatically start listening to theme changes
     }),
 

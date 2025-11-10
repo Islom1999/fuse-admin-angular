@@ -16,6 +16,7 @@ export interface ITableFilterConfig {
   showResetButton?: boolean
   resetButtonLabel?: string
   columns?: number // Grid columns (1, 2, 3, 4)
+  templateOptions?: IFilterField[]
 }
 
 export function convertToFormlyFields(fields: IFilterField[]): FormlyFieldConfig[] {
